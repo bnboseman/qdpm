@@ -1,0 +1,11 @@
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*
+.DS_Store
+.editorconfig
+*.lesscache
+lessphp_*
+.buildpath
+.project
+.settings
