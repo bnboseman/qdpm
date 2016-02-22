@@ -107,4 +107,32 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function login() {
+    	if ($this->request->is ( 'post' )) {
+    		$user = $this->Auth->identify ();
+    		if ($user && $user ['role_id'] != 6) {
+    			$this->Auth->setUser ( $this->Users->get ( $user ['id'], [
+    					'contain' => [
+    							'Department',
+    							'Roles'
+    					]
+    			] )->toArray () );
+    			if ($this->Auth->redirectUrl () !== "/users/logout") {
+    				return $this->redirect ( $this->Auth->redirectUrl () );
+    			} else {
+    				return $this->redirect ( $this->Auth->redirectUrl () );
+    			}
+    		}
+    		if ($user ['role_id'] == 6) {
+    			$this->Flash->error ( 'Your account has been disabled.' );
+    		} else {
+    			$this->Flash->error ( 'Your username or password is incorrect.' );
+    		}
+    	}
+    }
+    public function logout() {
+    	$this->Flash->success ( 'You are now logged out.' );
+    	return $this->redirect ( $this->Auth->logout () );
+    }
 }
