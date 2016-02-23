@@ -3,9 +3,9 @@
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-            
+
             <li class="mt">
-                <a class="active" href="#">
+                <a class="active" href="dashboard">
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
                 </a>
@@ -17,7 +17,7 @@
                 </a>
                 <ul class="sub">
                     <li><a  href="#">Add Project</a></li>
-                    <li><a  href="#">View All</a></li>
+                    <li><a  href="#/projects">View All</a></li>
                 </ul>
             </li>
             <li class="sub-menu">

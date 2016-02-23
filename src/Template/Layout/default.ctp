@@ -20,16 +20,22 @@
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
     </head>
-    <body>
-        
+    <body ng-app="TaskManager">
+    <base href="/">
+
         <section id="container" >
             <!-- TOP BAR CONTENT & NOTIFICATIONS -->
             <!--header start-->
-            <?= $this->element('header'); ?>   
+            <?= $this->element('header'); ?>
             <!--header end-->
+
+
             <!-- MAIN SIDEBAR MENU -->
-            
-            <?= $this->element('sidebar'); ?>
+            <?php
+            if ($this->request->session()->read('Auth.User.id') ) {
+            	echo $this->element('sidebar');
+            }
+            ?>
             <!-- MAIN CONTENT  -->
             <!--main content start-->
             <section id="main-content">
@@ -45,9 +51,9 @@
             </section>
             <!--main content end-->
         </section>
-        
+
         <?= $this->element('footer'); ?>
-        
+
         <?= $this->Html->script('jquery.js'); ?>
         <?= $this->Html->script('jquery-1.8.3.min.js'); ?>
         <?= $this->Html->script('bootstrap.min.js'); ?>
@@ -65,6 +71,7 @@
         <?= $this->Html->script('angular.min.js'); ?>
         <?= $this->Html->script('angular-route.min.js'); ?>
         <?= $this->Html->script('dirPagination.js'); ?>
+        <?= $this->Html->script('controllers/controllers.js'); ?>
         <?= $this->Html->script('script.js'); ?>
         <script type="application/javascript">
             $(document).ready(function () {
@@ -73,7 +80,7 @@
                 $("#date-popover").click(function (e) {
                     $(this).hide();
                 });
-            
+
                 $("#my-calendar").zabuto_calendar({
                     action: function () {
                         return myDateFunction(this.id, false);
@@ -91,8 +98,8 @@
                     ]
                 });
             });
-            
-            
+
+
             function myNavFunction(id) {
                 $("#date-popover").hide();
                 var nav = $("#" + id).data("navigation");

@@ -10,12 +10,19 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+	public function isAuthorized($user) {
+		$action = $this->request->params ['action'];
 
-    /**
-     * Index method
-     *
-     * @return void
-     */
+		if (in_array ( $action, ['login'] ) ) {
+			return true;
+		}
+		if (in_array ( $action, ['logout','index'] ) && ! empty ( $user )) {
+			return true;
+		}
+
+		return parent::isAuthorized($user);
+	}
+
     public function index()
     {
         $this->paginate = [
@@ -25,13 +32,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['users']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
@@ -41,11 +41,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
 
-    /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $user = $this->Users->newEntity();
@@ -63,13 +58,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
@@ -89,13 +77,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -133,6 +114,6 @@ class UsersController extends AppController
     }
     public function logout() {
     	$this->Flash->success ( 'You are now logged out.' );
-    	return $this->redirect ( $this->Auth->logout () );
+    	return $this->redirect ( $this->Auth->logout() );
     }
 }

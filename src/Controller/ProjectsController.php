@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Network\Response;
 
 /**
  * Projects Controller
@@ -10,20 +11,20 @@ use App\Controller\AppController;
  */
 class ProjectsController extends AppController
 {
-	
+
 	public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
-		
+
 		// Allow all users to see index
 		if ( in_array ( $action, ['index'] )  && !empty ( $user )) {
 			return true;
 		}
-		
-		if ( in_array ( $action, ['view'] )  && !empty ( $user )) {
-			
+
+		if ( in_array ( $action, ['view', 'delete'] )  && !empty ( $user )) {
+			return true;
 		}
-		
-		
+
+
 		return parent::isAuthorized ( $user );
 	}
 
@@ -48,21 +49,12 @@ class ProjectsController extends AppController
     public function view($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Status', 
-            		'Creator',  
-            		'Types', 
-            		'DiscussionReports', 
-            		'Discussions', 
-            		'Attachments', 
-            		'Comments', 
-            		'Phases', 
-            		'Reports', 
-            		'TaskGroups', 
-            		'Tasks', 
-            		'TicketReports', 
-            		'Tickets', 
-            		'UserReports', 
-            		'Versions']
+            'contain' => [/*'Status',
+            		'Types',
+            		'Attachments',
+            		'Comments',
+            		'Tasks',
+            		'Tickets'*/]
         ]);
         $this->set('project', $project);
         $this->set('_serialize', ['project']);
@@ -130,10 +122,21 @@ class ProjectsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $project = $this->Projects->get($id);
         if ($this->Projects->delete($project)) {
-            $this->Flash->success(__('The project has been deleted.'));
+        	return new Response([
+        			'type' => 'application/json',
+        			'body' =>json_encode(['success' => 'The project has been deleted.',
+        								  'projects' => $this->Projects->find('all')
+        			]),
+        			'charset' => 'UTF-8'
+        	]);
         } else {
-            $this->Flash->error(__('The project could not be deleted. Please, try again.'));
+        	return new Response([
+        			'type' => 'application/json',
+        			'body' =>json_encode(['error' => 'The project could not be deleted. Please, try again.'
+        			]),
+        			'charset' => 'UTF-8'
+        	]);
         }
-        return $this->redirect(['action' => 'index']);
+        return;
     }
 }

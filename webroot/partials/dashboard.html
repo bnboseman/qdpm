@@ -1,0 +1,22 @@
+<div ng-controller="TaskManagerCtrl">
+<h1>Dashboard</h1>
+<div class="content-panel" ng-repeat="report in reports">
+    <div ng-show="report.display_on_home">
+    <h2 class="h4">&nbsp;<i class="fa fa-angle-right"></i> {{report.name}}</h2>
+    <table class="table table-responsive">
+    <tr>
+        <th>Action</th>
+        <th>Priority</th>
+        <th>Label</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Assigned To</th>
+        <th>Due Date</th>
+        <th>Created</th>
+        <th>Project</th>
+    </tr>
+    </table>
+    </div>
+</div>
+</div>

@@ -1,3 +1,4 @@
+<div class="login">
 <div class="col-md-6 col-sx-12">
     <p>
     <?= __('Welcome to the New Hope Fertility Center Intranet. If you are a New Hope Fertility Center staff
@@ -7,7 +8,7 @@
     </p>
 </div>
 
-<div class="col-md-6 col-sx-12 users form">
+<div class="col-md-6 col-sx-12">
 
 <?= $this->Form->create() ?>
     <fieldset>
@@ -17,5 +18,6 @@
     </fieldset>
 <?= $this->Form->button(__('Login')); ?>
 <?= $this->Form->end() ?>
+</div>
 </div>
 <?php $this->assign('title', 'New Hope Fertility Intranet - Login'); ?>

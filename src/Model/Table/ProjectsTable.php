@@ -42,7 +42,7 @@ class ProjectsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-        
+
         $this->addBehavior('OwnedBy', ['field' => 'created_by']);
 
         $this->belongsTo('Status', [

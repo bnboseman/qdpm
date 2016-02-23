@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use App\Model\Table\ProjectTable;
 
 /**
  * Project Entity.
@@ -45,7 +46,7 @@ class Project extends Entity
         '*' => true,
         'id' => false,
     ];
-    
+
     protected  $_hidden = [
     		'project_types_id',
     		'created_by',

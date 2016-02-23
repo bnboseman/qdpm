@@ -1,0 +1,25 @@
+<div ng-controller="ProjectsCtrl">
+ 
+    <div class="content-panel">
+       <h1>Projects</h1>
+        <table class="table table-responsive" ng-show="projects.length > 0">
+        <tr>
+            <th>Action</th>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Created</th>
+        </tr>
+        
+        <tr ng-repeat="project in projects">
+        <td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteProject(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
+            <td>{{project.id}}</td>
+            <td>{{project.status.name}}</td>
+            <td>{{project.name}}</td>
+            <td>{{project.type.name}}</td>
+            <td>{{project.created}}</td>
+        </tr>
+        </table>
+    </div>
+</div>
