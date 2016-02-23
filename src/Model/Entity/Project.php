@@ -45,4 +45,10 @@ class Project extends Entity
         '*' => true,
         'id' => false,
     ];
+    
+    protected  $_hidden = [
+    		'project_types_id',
+    		'created_by',
+    		'project_status_id'
+    ];
 }

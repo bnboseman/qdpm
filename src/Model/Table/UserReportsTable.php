@@ -45,10 +45,10 @@ class UserReportsTable extends Table
         $this->belongsTo('ProjectTypes', [
             'foreignKey' => 'project_type_id'
         ]);
-        $this->belongsTo('ProjectStatuses', [
+        $this->belongsTo('ProjectStatus', [
             'foreignKey' => 'project_status_id'
         ]);
-        $this->belongsTo('TaskStatuses', [
+        $this->belongsTo('TaskStatus', [
             'foreignKey' => 'task_status_id'
         ]);
         $this->belongsTo('TaskTypes', [

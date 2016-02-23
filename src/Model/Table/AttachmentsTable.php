@@ -36,9 +36,17 @@ class AttachmentsTable extends Table
         		'foreignKey' => 'bind_id',
         		'conditions' => ['Attachments.bind_type' => 'tasks']
         ]);
-        $this->belongsTo('TaskCommentss', [
+        $this->belongsTo('TaskComments', [
         		'foreignKey' => 'bind_id',
         		'conditions' => ['Attachments.bind_type' => 'comments']
+        ]);
+        $this->belongsTo('Tickets', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'tickets']
+        ]);
+        $this->belongsTo('TicketComments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'ticketsComments']
         ]);
     }
 

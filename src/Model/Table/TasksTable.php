@@ -77,6 +77,10 @@ class TasksTable extends Table
         $this->belongsTo('Discussions', [
             'foreignKey' => 'discussion_id'
         ]);
+        $this->belongsTo('Creators', [
+        		'foreignKey' => 'created_by',
+        		'className' => 'Users'
+        ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'task_id',
         	'className' => 'TaskComments'

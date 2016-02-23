@@ -37,12 +37,40 @@ class AppController extends Controller
      *
      * @return void
      */
+	
+	public $helpers = [
+			'Less.Less', // required for parsing less files
+			'BootstrapUI.Form',
+			'BootstrapUI.Html',
+			'BootstrapUI.Flash',
+			'BootstrapUI.Paginator'
+	];
+	
+	
     public function initialize()
     {
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        
+        $this->loadComponent('Auth', [
+        		'authorize' => 'Controller',
+        		'authenticate' => [
+        				'Form' => [
+        						'fields' => [
+        								'username' => 'username',
+        								'password' => 'password'
+        						]
+        				]
+        		],
+        		'loginAction' => [
+        				'controller' => 'Users',
+        				'action' => 'login'
+        		],
+        		'unauthorizedRedirect' => $this->referer()
+        ]);
+        $this->Auth->allow(['display']);
     }
 
     /**
@@ -58,5 +86,9 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    
+    public function isAuthorized($user) {
+    	return false;
     }
 }

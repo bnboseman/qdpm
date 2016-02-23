@@ -21,7 +21,7 @@
         <?= $this->fetch('script') ?>
     </head>
     <body>
-        <?= $this->Flash->render() ?>
+        
         <section id="container" >
             <!-- TOP BAR CONTENT & NOTIFICATIONS -->
             <!--header start-->
@@ -34,8 +34,9 @@
             <!--main content start-->
             <section id="main-content">
                 <section class="wrapper">
-                    <div class="row">
+                    <div class="row" style="min-height: 100%; height: 100%;">
                         <div class="col-md-12">
+                        	<?= $this->Flash->render() ?>
                             <?= $this->fetch('content'); ?>
                         </div>
                     </div>
@@ -43,12 +44,10 @@
                 </section>
             </section>
             <!--main content end-->
-            <!--footer start-->
-            <?= $this->element('footer'); ?>
-            <!--footer end-->
         </section>
-        <footer>
-        </footer>
+        
+        <?= $this->element('footer'); ?>
+        
         <?= $this->Html->script('jquery.js'); ?>
         <?= $this->Html->script('jquery-1.8.3.min.js'); ?>
         <?= $this->Html->script('bootstrap.min.js'); ?>
@@ -63,6 +62,10 @@
         <!--script for this page-->
         <?= $this->Html->script('sparkline-chart.js'); ?>
         <?= $this->Html->script('zabuto_calendar.js'); ?>
+        <?= $this->Html->script('angular.min.js'); ?>
+        <?= $this->Html->script('angular-route.min.js'); ?>
+        <?= $this->Html->script('dirPagination.js'); ?>
+        <?= $this->Html->script('script.js'); ?>
         <script type="application/javascript">
             $(document).ready(function () {
                 $("#date-popover").popover({html: true, trigger: "manual"});

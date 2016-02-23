@@ -42,10 +42,16 @@ class ProjectsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        
+        $this->addBehavior('OwnedBy', ['field' => 'created_by']);
 
         $this->belongsTo('Status', [
             'foreignKey' => 'project_status_id',
         	'className' => 'ProjectStatus'
+        ]);
+        $this->belongsTo('Creator', [
+        		'foreignKey' => 'created_by',
+        		'className' => 'Users'
         ]);
         $this->belongsTo('Types', [
             'foreignKey' => 'project_types_id',
@@ -90,6 +96,10 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('Versions', [
             'foreignKey' => 'project_id'
+        ]);
+        $this->belongsToMany('Team', [
+        	'className' => 'Users',
+        	'targetForeignKey' => 'user_id'
         ]);
     }
 

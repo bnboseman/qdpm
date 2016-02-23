@@ -111,11 +111,10 @@ class UsersController extends AppController
     public function login() {
     	if ($this->request->is ( 'post' )) {
     		$user = $this->Auth->identify ();
-    		if ($user && $user ['role_id'] != 6) {
+    		if ($user) {
     			$this->Auth->setUser ( $this->Users->get ( $user ['id'], [
     					'contain' => [
-    							'Department',
-    							'Roles'
+    							'Department'
     					]
     			] )->toArray () );
     			if ($this->Auth->redirectUrl () !== "/users/logout") {

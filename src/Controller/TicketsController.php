@@ -11,6 +11,29 @@ use App\Controller\AppController;
 class TicketsController extends AppController
 {
 
+public function isAuthorized($user) {
+		$action = $this->request->params ['action'];
+	
+		// Allow all users to logout and see dashboard
+		if (in_array ( $action, [
+				'index',
+		] ) && ! empty ( $user )) {
+			return true;
+		
+		
+		if (in_array ( $action, [
+				'view',
+				'edit',
+				'delete'
+		] ) && $this->Tickets->exists(
+				['user_id' => $user['id'], 
+				 'id' => $this->request->params ['pass'] [0]
+				] )) {
+			return true;
+		}
+	
+		return parent::isAuthorized ( $user );
+	}
     /**
      * Index method
      *

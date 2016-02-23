@@ -11,6 +11,11 @@ use App\Controller\AppController;
 class TasksController extends AppController
 {
 
+	public function isAuthorized($user) {
+		if ($user) {
+			return true;
+		}
+	}
     /**
      * Index method
      *

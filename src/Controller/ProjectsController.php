@@ -10,6 +10,17 @@ use App\Controller\AppController;
  */
 class ProjectsController extends AppController
 {
+	
+	public function isAuthorized($user) {
+		$action = $this->request->params ['action'];
+		
+		// Allow all users to logout and see dashboard
+		if ( in_array ( $action, ['index',] )  && !empty ( $user )) {
+			return true;
+		}
+		
+		return parent::isAuthorized ( $user );
+	}
 
     /**
      * Index method
@@ -18,10 +29,7 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Status', 'Types']
-        ];
-        $this->set('projects', $this->paginate($this->Projects));
+        $this->set('projects', $this->Projects->find('all', ['contain' =>['Status','Types','Creator', 'Team']])->toArray());
         $this->set('_serialize', ['projects']);
     }
 
@@ -35,7 +43,21 @@ class ProjectsController extends AppController
     public function view($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Status', 'Types', 'DiscussionReports', 'Discussions', 'Comments', 'Phase', 'ProjectReports', 'TaskGroups', 'Tasks', 'TicketReports', 'Tickets', 'UserReports', 'Versions']
+            'contain' => ['Status', 
+            		'Creator',  
+            		'Types', 
+            		'DiscussionReports', 
+            		'Discussions', 
+            		'Attachments', 
+            		'Comments', 
+            		'Phases', 
+            		'Reports', 
+            		'TaskGroups', 
+            		'Tasks', 
+            		'TicketReports', 
+            		'Tickets', 
+            		'UserReports', 
+            		'Versions']
         ]);
         $this->set('project', $project);
         $this->set('_serialize', ['project']);

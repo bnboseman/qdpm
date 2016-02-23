@@ -26,51 +26,23 @@ use Cake\Routing\Router;
 Router::scope('/', function ($routes) {
 	$routes->extensions(['json']);
 	$routes->resources('Attachments');
-	$routes->resources('configuration');
-	$routes->resources('departments');
-	$routes->resources('discussion_comments');
-	$routes->resources('discussion_reports');
-	$routes->resources('discussion_status');
-	$routes->resources('discussions');
-	$routes->resources('events');
-	$routes->resources('extra_field_list');
-	$routes->resources('extra_fields');
-	$routes->resources('phase_status');
-	$routes->resources('phases');
-	$routes->resources('project_phases');
-	$routes->resources('project_reports');
-	$routes->resources('project_status');
-	$routes->resources('project_types');
-	$routes->resources('projects', function( $routes) {
+	$routes->resources('Discussions');
+	$routes->resources('Events');
+	$routes->resources('Projects', function( $routes) {
 		$routes->resources('Comments', ['controller' => 'project_comments']);
 	});
-
 	$routes->resources('Tasks', function( $routes) {
 		$routes->resources('Comments', ['controller' => 'TaskComments']);
 	});
-
-	$routes->resources('TaskGroups');
-	$routes->resources('TaskLabels');
-	$routes->resources('TaskPriority');
-	$routes->resources('TaskStatus');
-	$routes->resources('TaskTypes');
-
 	$routes->resources('Tickets', function( $routes) {
 		$routes->resources('Comments', ['controller' => 'ticket_comments']);
 	});
-
-	$routes->resources('ticket_reports');
-	$routes->resources('ticket_status');
-	$routes->resources('ticket_types');
-
-	$routes->resources('user_groups');
-	$routes->resources('user_reports');
-	$routes->resources('users');
-	$routes->resources('versions');
-	$routes->resources('versions_status');
+	$routes->resources('UserReports');
+	$routes->resources('Users');
 
 
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
 

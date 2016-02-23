@@ -36,15 +36,19 @@ class UsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('users');
-        $this->displayField('name');
+        $this->table('Users');
         $this->primaryKey('id');
 
         $this->belongsTo('UserGroups', [
             'foreignKey' => 'user_group_id'
         ]);
-        $this->hasMany('Departments', [
-            'foreignKey' => 'user_id'
+        $this->belongsTo('Department', [
+            'foreignKey' => 'department_id',
+        	'className' =>'Departments'
+        ]);
+        $this->belongsTo('Roles', [
+        		'foreignKey' => 'role_id',
+        		'className' =>'Roles'
         ]);
         $this->hasMany('DiscussionComments', [
             'foreignKey' => 'user_id'

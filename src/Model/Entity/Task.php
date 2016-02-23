@@ -55,4 +55,18 @@ class Task extends Entity
         '*' => true,
         'id' => false,
     ];
+    
+    protected  $_hidden = [
+    		'project_id',
+    		'task_priority_id',
+    		'task_status_id',
+    		'task_type_id',
+    		'task_label_id',
+    		'task_groups_id',
+    		'project_phase_id',
+    		'versions_id',
+    		'created_by',
+    		'ticket_id',
+    		'discussion_id'
+    ];
 }

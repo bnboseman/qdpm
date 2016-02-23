@@ -10,7 +10,29 @@ use App\Controller\AppController;
  */
 class UserReportsController extends AppController
 {
-
+	public function isAuthorized($user) {
+		$action = $this->request->params ['action'];
+	
+		// Allow all users to logout and see dashboard
+		if (in_array ( $action, [
+				'index',
+		] ) && ! empty ( $user )) {
+			return true;
+		}
+		
+		if (in_array ( $action, [
+				'view',
+				'edit',
+				'delete'
+		] ) && $this->UserReports->exists(
+				['user_id' => $user['id'], 
+				 'id' => $this->request->params ['pass'] [0]
+				] )) {
+			return true;
+		}
+	
+		return parent::isAuthorized ( $user );
+	}
     /**
      * Index method
      *
@@ -18,10 +40,15 @@ class UserReportsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users', 'Projects', 'ProjectTypes', 'ProjectStatus', 'TaskStatus', 'TaskTypes', 'TaskLabels']
-        ];
-        $this->set('userReports', $this->paginate($this->UserReports));
+        
+        $this->set('userReports', $this->UserReports->find('all', ['contain' => [ 
+        		'Projects', 
+        		'ProjectTypes', 
+        		'ProjectStatus', 
+        		'TaskStatus', 
+        		'TaskTypes', 
+        'TaskLabels']])
+        		->where(['user_id' => $this->Auth->user('id') ]));
         $this->set('_serialize', ['userReports']);
     }
 
@@ -34,9 +61,7 @@ class UserReportsController extends AppController
      */
     public function view($id = null)
     {
-        $userReport = $this->UserReports->get($id, [
-            'contain' => ['Users', 'Projects', 'ProjectTypes', 'ProjectStatus', 'TaskStatus', 'TaskTypes', 'TaskLabels']
-        ]);
+        $userReport = $this->UserReports->get($id);
         $this->set('userReport', $userReport);
         $this->set('_serialize', ['userReport']);
     }
