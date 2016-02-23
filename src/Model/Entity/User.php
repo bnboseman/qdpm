@@ -44,11 +44,16 @@ class User extends Entity
         'id' => false,
     ];
     
-    protected $_virtual = ['full_name'];
+    protected $_virtual = ['full_name', 'access'];
     
     protected function _getFullName()
     {
     	return $this->_properties['first'] . '  ' . $this->_properties['last'];
+    }
+    
+    protected function _access()
+    {
+    	var_dump($this);
     }
     
     protected $_hidden = ['password'];

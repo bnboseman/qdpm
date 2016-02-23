@@ -80,6 +80,9 @@ class UsersTable extends Table
         $this->hasMany('UserReports', [
             'foreignKey' => 'user_id'
         ]);
+        $this->belongsTo('UserGroup', [
+        		'className' => 'UserGroups'
+        ]);
     }
 
     /**

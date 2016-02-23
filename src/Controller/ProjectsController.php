@@ -14,10 +14,15 @@ class ProjectsController extends AppController
 	public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
 		
-		// Allow all users to logout and see dashboard
-		if ( in_array ( $action, ['index',] )  && !empty ( $user )) {
+		// Allow all users to see index
+		if ( in_array ( $action, ['index'] )  && !empty ( $user )) {
 			return true;
 		}
+		
+		if ( in_array ( $action, ['view'] )  && !empty ( $user )) {
+			
+		}
+		
 		
 		return parent::isAuthorized ( $user );
 	}

@@ -114,7 +114,8 @@ class UsersController extends AppController
     		if ($user) {
     			$this->Auth->setUser ( $this->Users->get ( $user ['id'], [
     					'contain' => [
-    							'Department'
+    							'Department',
+    							'UserGroup'
     					]
     			] )->toArray () );
     			if ($this->Auth->redirectUrl () !== "/users/logout") {
