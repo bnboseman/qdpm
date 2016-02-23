@@ -19,7 +19,7 @@ class AttachmentsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Binds']
+            'contain' => ['Projects', 'Tasks']
         ];
         $this->set('attachments', $this->paginate($this->Attachments));
         $this->set('_serialize', ['attachments']);

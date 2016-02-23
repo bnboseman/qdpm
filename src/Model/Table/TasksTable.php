@@ -14,13 +14,13 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $TaskStatus
  * @property \Cake\ORM\Association\BelongsTo $TaskPriority
  * @property \Cake\ORM\Association\BelongsTo $TaskTypes
- * @property \Cake\ORM\Association\BelongsTo $TaskLabels
- * @property \Cake\ORM\Association\BelongsTo $TaskGroups
+ * @property \Cake\ORM\Association\BelongsTo $Labels
+ * @property \Cake\ORM\Association\BelongsTo $Groups
  * @property \Cake\ORM\Association\BelongsTo $ProjectPhases
  * @property \Cake\ORM\Association\BelongsTo $Versions
  * @property \Cake\ORM\Association\BelongsTo $Tickets
  * @property \Cake\ORM\Association\BelongsTo $Discussions
- * @property \Cake\ORM\Association\HasMany $TaskComments
+ * @property \Cake\ORM\Association\HasMany $Comments
  */
 class TasksTable extends Table
 {
@@ -45,20 +45,25 @@ class TasksTable extends Table
             'foreignKey' => 'project_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('TaskStatus', [
-            'foreignKey' => 'task_status_id'
+        $this->belongsTo('Status', [
+            'foreignKey' => 'task_status_id',
+        	'className' => 'TaskStatus'
         ]);
-        $this->belongsTo('TaskPriority', [
-            'foreignKey' => 'task_priority_id'
+        $this->belongsTo('Priority', [
+            'foreignKey' => 'task_priority_id',
+        	'className' => 'TaskPriority'
         ]);
-        $this->belongsTo('TaskTypes', [
-            'foreignKey' => 'task_type_id'
+        $this->belongsTo('Types', [
+            'foreignKey' => 'task_type_id',
+        	'className' => 'TaskTypes'
         ]);
-        $this->belongsTo('TaskLabels', [
-            'foreignKey' => 'task_label_id'
+        $this->belongsTo('Labels', [
+            'foreignKey' => 'task_label_id',
+        	'className' => 'TaskLabels'
         ]);
-        $this->belongsTo('TaskGroups', [
-            'foreignKey' => 'task_groups_id'
+        $this->belongsTo('Groups', [
+            'foreignKey' => 'task_groups_id',
+        	'className' => 'TaskGroups'
         ]);
         $this->belongsTo('ProjectPhases', [
             'foreignKey' => 'project_phase_id'
@@ -72,8 +77,13 @@ class TasksTable extends Table
         $this->belongsTo('Discussions', [
             'foreignKey' => 'discussion_id'
         ]);
-        $this->hasMany('TaskComments', [
-            'foreignKey' => 'task_id'
+        $this->hasMany('Comments', [
+            'foreignKey' => 'task_id',
+        	'className' => 'TaskComments'
+        ]);
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'tasks']
         ]);
     }
 
@@ -136,11 +146,11 @@ class TasksTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
-        $rules->add($rules->existsIn(['task_status_id'], 'TaskStatus'));
-        $rules->add($rules->existsIn(['task_priority_id'], 'TaskPriority'));
-        $rules->add($rules->existsIn(['task_type_id'], 'TaskTypes'));
-        $rules->add($rules->existsIn(['task_label_id'], 'TaskLabels'));
-        $rules->add($rules->existsIn(['task_groups_id'], 'TaskGroups'));
+        $rules->add($rules->existsIn(['task_status_id'], 'Status'));
+        $rules->add($rules->existsIn(['task_priority_id'], 'Priority'));
+        $rules->add($rules->existsIn(['task_type_id'], 'Types'));
+        $rules->add($rules->existsIn(['task_label_id'], 'Labels'));
+        $rules->add($rules->existsIn(['task_groups_id'], 'Groups'));
         $rules->add($rules->existsIn(['project_phase_id'], 'ProjectPhases'));
         $rules->add($rules->existsIn(['versions_id'], 'Versions'));
         $rules->add($rules->existsIn(['ticket_id'], 'Tickets'));

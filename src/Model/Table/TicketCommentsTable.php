@@ -40,8 +40,13 @@ class TicketCommentsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
-        $this->belongsTo('TicketStatuses', [
+        $this->belongsTo('TicketStatus', [
             'foreignKey' => 'ticket_status_id'
+        ]);
+        
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'ticketsComments']
         ]);
     }
 

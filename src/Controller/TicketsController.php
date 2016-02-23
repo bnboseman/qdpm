@@ -19,7 +19,7 @@ class TicketsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Departments', 'Types', 'Status', 'Users', 'Projects']
+            'contain' => ['Attachments', 'Departments', 'Types', 'Status', 'Users', 'Projects']
         ];
         $this->set('tickets', $this->paginate($this->Tickets));
         $this->set('_serialize', ['tickets']);

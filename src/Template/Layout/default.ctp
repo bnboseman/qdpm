@@ -1,57 +1,101 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <section class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+<html lang="en">
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            <?= $this->fetch('title') ?>
+        </title>
+        <?= $this->Html->meta('icon') ?>
+        <?= $this->Html->css('bootstrap.css') ?>
+        <?= $this->Html->css('/font-awesome/css/font-awesome.css') ?>
+        <?= $this->Html->css('zabuto_calendar.css') ?>
+        <?= $this->Html->css('/js/gritter/css/jquery.gritter.css') ?>
+        <?= $this->Html->css('/lineicons/style.css'); ?>
+        <!-- Custom Styles -->
+        <?= $this->Html->css('style.css') ?>
+        <?= $this->Html->css('style-responsive.css') ?>
+        <?= $this->Html->script('chart-master/Chart.js')?>
+        <?= $this->fetch('meta') ?>
+        <?= $this->fetch('css') ?>
+        <?= $this->fetch('script') ?>
+    </head>
+    <body>
+        <?= $this->Flash->render() ?>
+        <section id="container" >
+            <!-- TOP BAR CONTENT & NOTIFICATIONS -->
+            <!--header start-->
+            <?= $this->element('header'); ?>   
+            <!--header end-->
+            <!-- MAIN SIDEBAR MENU -->
+            
+            <?= $this->element('sidebar'); ?>
+            <!-- MAIN CONTENT  -->
+            <!--main content start-->
+            <section id="main-content">
+                <section class="wrapper">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?= $this->fetch('content'); ?>
+                        </div>
+                    </div>
+                    <!--/row -->
+                </section>
+            </section>
+            <!--main content end-->
+            <!--footer start-->
+            <?= $this->element('footer'); ?>
+            <!--footer end-->
         </section>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <section class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </section>
-    <footer>
-    </footer>
-</body>
+        <footer>
+        </footer>
+        <?= $this->Html->script('jquery.js'); ?>
+        <?= $this->Html->script('jquery-1.8.3.min.js'); ?>
+        <?= $this->Html->script('bootstrap.min.js'); ?>
+        <?= $this->Html->script('jquery.dcjqaccordion.2.7.js'); ?>
+        <?= $this->Html->script('jquery.scrollTo.min.js'); ?>
+        <?= $this->Html->script('jquery.nicescroll.js'); ?>
+        <?= $this->Html->script('jquery.sparkline.js'); ?>
+        <!--common script for all pages-->
+        <?= $this->Html->script('common-scripts.js'); ?>
+        <?= $this->Html->script('gritter/js/jquery.gritter.js'); ?>
+        <?= $this->Html->script('gritter-conf.js'); ?>
+        <!--script for this page-->
+        <?= $this->Html->script('sparkline-chart.js'); ?>
+        <?= $this->Html->script('zabuto_calendar.js'); ?>
+        <script type="application/javascript">
+            $(document).ready(function () {
+                $("#date-popover").popover({html: true, trigger: "manual"});
+                $("#date-popover").hide();
+                $("#date-popover").click(function (e) {
+                    $(this).hide();
+                });
+            
+                $("#my-calendar").zabuto_calendar({
+                    action: function () {
+                        return myDateFunction(this.id, false);
+                    },
+                    action_nav: function () {
+                        return myNavFunction(this.id);
+                    },
+                    ajax: {
+                        url: "show_data.php?action=1",
+                        modal: true
+                    },
+                    legend: [
+                        {type: "text", label: "Special event", badge: "00"},
+                        {type: "block", label: "Regular event", }
+                    ]
+                });
+            });
+            
+            
+            function myNavFunction(id) {
+                $("#date-popover").hide();
+                var nav = $("#" + id).data("navigation");
+                var to = $("#" + id).data("to");
+                console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+            }
+        </script>
+    </body>
 </html>

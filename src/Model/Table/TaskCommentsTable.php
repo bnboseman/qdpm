@@ -43,6 +43,10 @@ class TaskCommentsTable extends Table
         $this->belongsTo('TaskPriority', [
             'foreignKey' => 'task_priority_id'
         ]);
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'tasksComments']
+        ]);
     }
 
     /**

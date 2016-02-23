@@ -47,6 +47,10 @@ class CommentsTable extends Table
         $this->belongsTo('Priorties', [
             'foreignKey' => 'priority_id'
         ]);
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'comments']
+        ]);
     }
 
     /**

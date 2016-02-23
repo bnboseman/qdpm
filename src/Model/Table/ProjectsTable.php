@@ -57,6 +57,10 @@ class ProjectsTable extends Table
         $this->hasMany('Discussions', [
             'foreignKey' => 'project_id'
         ]);
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'projects']
+        ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'project_id',
         	'className' => 'ProjectComments'

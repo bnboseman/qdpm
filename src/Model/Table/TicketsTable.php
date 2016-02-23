@@ -59,6 +59,10 @@ class TicketsTable extends Table
         $this->hasMany('Tasks', [
             'foreignKey' => 'ticket_id'
         ]);
+        $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'tickets']
+        ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'ticket_id',
         	'className' => 'TicketComments'

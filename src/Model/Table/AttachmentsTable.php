@@ -28,10 +28,17 @@ class AttachmentsTable extends Table
         $this->table('attachments');
         $this->displayField('id');
         $this->primaryKey('id');
-
-        $this->belongsTo('Binds', [
-            'foreignKey' => 'bind_id',
-            'joinType' => 'INNER'
+        $this->belongsTo('Projects', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'projects']
+        ]);
+        $this->belongsTo('Tasks', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'tasks']
+        ]);
+        $this->belongsTo('TaskCommentss', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'comments']
         ]);
     }
 

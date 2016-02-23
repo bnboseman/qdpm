@@ -19,7 +19,7 @@ class TasksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Projects', 'TaskStatus', 'TaskPriority', 'TaskTypes', 'TaskLabels', 'TaskGroups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions']
+            'contain' => ['Projects', 'Status', 'Priority', 'Types', 'Labels', 'Groups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions']
         ];
         $this->set('tasks', $this->paginate($this->Tasks));
         $this->set('_serialize', ['tasks']);
@@ -35,7 +35,7 @@ class TasksController extends AppController
     public function view($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => ['Projects', 'TaskStatus', 'TaskPriority', 'TaskTypes', 'TaskLabels', 'TaskGroups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions', 'TaskComments']
+            'contain' => ['Projects', 'Status', 'Priority', 'Types', 'Labels', 'Groups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions', 'Comments']
         ]);
         $this->set('task', $task);
         $this->set('_serialize', ['task']);
@@ -59,16 +59,16 @@ class TasksController extends AppController
             }
         }
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $taskStatus = $this->Tasks->TaskStatus->find('list', ['limit' => 200]);
-        $taskPriority = $this->Tasks->TaskPriority->find('list', ['limit' => 200]);
-        $taskTypes = $this->Tasks->TaskTypes->find('list', ['limit' => 200]);
-        $taskLabels = $this->Tasks->TaskLabels->find('list', ['limit' => 200]);
-        $taskGroups = $this->Tasks->TaskGroups->find('list', ['limit' => 200]);
+        $Status = $this->Tasks->Status->find('list', ['limit' => 200]);
+        $Priority = $this->Tasks->Priority->find('list', ['limit' => 200]);
+        $Types = $this->Tasks->Types->find('list', ['limit' => 200]);
+        $Labels = $this->Tasks->Labels->find('list', ['limit' => 200]);
+        $Groups = $this->Tasks->Groups->find('list', ['limit' => 200]);
         $projectPhases = $this->Tasks->ProjectPhases->find('list', ['limit' => 200]);
         $versions = $this->Tasks->Versions->find('list', ['limit' => 200]);
         $tickets = $this->Tasks->Tickets->find('list', ['limit' => 200]);
         $discussions = $this->Tasks->Discussions->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'projects', 'taskStatus', 'taskPriority', 'taskTypes', 'taskLabels', 'taskGroups', 'projectPhases', 'versions', 'tickets', 'discussions'));
+        $this->set(compact('task', 'projects', 'Status', 'Priority', 'Types', 'Labels', 'Groups', 'projectPhases', 'versions', 'tickets', 'discussions'));
         $this->set('_serialize', ['task']);
     }
 
@@ -94,16 +94,16 @@ class TasksController extends AppController
             }
         }
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $taskStatus = $this->Tasks->TaskStatus->find('list', ['limit' => 200]);
-        $taskPriority = $this->Tasks->TaskPriority->find('list', ['limit' => 200]);
-        $taskTypes = $this->Tasks->TaskTypes->find('list', ['limit' => 200]);
-        $taskLabels = $this->Tasks->TaskLabels->find('list', ['limit' => 200]);
-        $taskGroups = $this->Tasks->TaskGroups->find('list', ['limit' => 200]);
+        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
+        $priority = $this->Tasks->Priority->find('list', ['limit' => 200]);
+        $types = $this->Tasks->Types->find('list', ['limit' => 200]);
+        $labels = $this->Tasks->Labels->find('list', ['limit' => 200]);
+        $groups = $this->Tasks->Groups->find('list', ['limit' => 200]);
         $projectPhases = $this->Tasks->ProjectPhases->find('list', ['limit' => 200]);
         $versions = $this->Tasks->Versions->find('list', ['limit' => 200]);
         $tickets = $this->Tasks->Tickets->find('list', ['limit' => 200]);
         $discussions = $this->Tasks->Discussions->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'projects', 'taskStatus', 'taskPriority', 'taskTypes', 'taskLabels', 'taskGroups', 'projectPhases', 'versions', 'tickets', 'discussions'));
+        $this->set(compact('task', 'projects', 'Status', 'priority', 'types', 'labels', 'groups', 'projectPhases', 'versions', 'tickets', 'discussions'));
         $this->set('_serialize', ['task']);
     }
 
