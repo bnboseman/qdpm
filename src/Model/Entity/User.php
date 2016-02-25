@@ -50,5 +50,5 @@ class User extends Entity
     {
     	return $this->_properties['first'] . '  ' . $this->_properties['last'];
     }
-    protected $_hidden = ['password'];
+    protected $_hidden = ['password', 'supervisor_id', 'role_id', 'user_group_id', 'department_id'];
 }

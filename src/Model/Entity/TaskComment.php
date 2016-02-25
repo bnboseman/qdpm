@@ -36,10 +36,11 @@ class TaskComment extends Entity
         '*' => true,
         'id' => false,
     ];
-    
+
     protected  $_hidden = [
     		'task_id',
     		'task_status_id',
-    		'task_priority_id'
+    		'task_priority_id',
+    		'user_id'
     ];
 }
