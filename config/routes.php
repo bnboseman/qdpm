@@ -28,11 +28,15 @@ Router::scope('/', function ($routes) {
 	$routes->resources('Attachments');
 	$routes->resources('Discussions');
 	$routes->resources('Events');
-	$routes->resources('Projects', function( $routes) {
-		$routes->resources('Comments', ['controller' => 'project_comments']);
-	});
+	$routes->resources('Projects', [
+			'map' => [
+					'search' => [
+							'action' => 'search',
+							'method' => 'POST'
+					]
+			]]);
 	$routes->resources('Tasks', function( $routes) {
-		$routes->resources('Comments', ['controller' => 'TaskComments']);
+		$routes->resources('TaskComments');
 	});
 	$routes->resources('Tickets', function( $routes) {
 		$routes->resources('Comments', ['controller' => 'ticket_comments']);
