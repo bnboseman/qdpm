@@ -27,6 +27,9 @@ app.factory("Task", function TaskFactory($http) {
 		},
 		create: function() {
 			return $http({method: "POST", url: "/tasks.json", data:project});
+		},
+		removeComment: function(task_id, comment_id) {
+			return $http({method: "DELETE", url:'tasks/' + task_id + '/task_comments/' + comment_id + '.json', data: comment_id});
 		}
 	}
 })
@@ -38,6 +41,7 @@ app.directive('task', function() {
 	    scope: {
 	        task: '=task'
 	      },
+	    controller: 'TasksCtrl'
 	  };
 });
 app.config(['$routeProvider', '$locationProvider',
@@ -57,6 +61,10 @@ app.config(['$routeProvider', '$locationProvider',
             }).
             when('/tasks', {
                 templateUrl: 'partials/tasks/index.html',
+                controller: 'TasksCtrl'
+            }).
+            when('/tasks/:id', {
+                templateUrl: 'partials/tasks/view.html',
                 controller: 'TasksCtrl'
             })
         }
@@ -78,7 +86,8 @@ app.config(['$routeProvider', '$locationProvider',
             
             $scope.selectView = function(view) {
             	$scope.view = view;
-            	
+            	$scope.task = {};
+            	 
             	if (view.page == 'task') {
             		Task.read(view.id).success(function(data) {
                         $scope.task = data.task;
@@ -122,23 +131,39 @@ app.config(['$routeProvider', '$locationProvider',
                 $scope.alerts.splice(index, 1);
               };
         }
-    ]).controller('TasksCtrl', ['$scope', '$http', '$routeParams', 
-    function($scope, $http, $routeParams)   {
+    ]).controller('TasksCtrl', ['$scope', '$http', '$routeParams', 'Task',
+    function($scope, $http, $routeParams, Task)   {
     	$scope.task = {};
     	$scope.tasks = {};
     	$scope.view = null;
+    	$scope.alerts = [];
     	
     	if ($routeParams.id !== undefined) {
-        	$http.get('tasks/' + $routeParams.id + '.json').success(function(data) {
+        	Task.read($routeParams.id).success(function(data) {
                 $scope.task = data.task;
             });
             
         } else {
-        	 $http.get('tasks.json').success(function(data) {
+        	Task.all().success(function(data) {
                  $scope.tasks = data.tasks;
                  $scope.view = 'index';
              });
         }
+    	
+    	$scope.deleteTaskComment = function(comment) {
+        	var confirmDelete = confirm("Are you sure?");
+        	if ( confirmDelete ) {
+        		Task.removeComment(comment.task_id, comment.id).success(function() {
+        			Task.read(comment.task_id).success(function(data) {
+                        $scope.task = data.task;
+                        $scope.alerts.push({type: 'success', msg: 'The comment has been deleted.'});
+                    });
+                })
+                .error(function(data) {
+                	$scope.alerts.push({type: 'danger', msg: data.message});
+                });
+        	}
+        };
     	
     }]).directive('a', function() {
         return {

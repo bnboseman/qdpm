@@ -1,6 +1,7 @@
 <div class="row nospace">
     <div class="col-md-8">
         <h2 class="h3 nospace">{{task.name}} [{{task.task_status.name}}]</h2>
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
         <ul class="list-inline">
             <li><a href="#"><i class="fa fa-comments-o"></i> Add Comment</a>
             </li>
