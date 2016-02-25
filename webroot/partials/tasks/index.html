@@ -1,0 +1,35 @@
+<div ng-controller="TasksCtrl">
+ <div class="content-panel">
+       <h1>Tasks</h1>
+        		<table class="table">
+		<tr>
+			<th>Action</th>
+			
+			<th>Group</th>
+			<th></th>
+			<th class="col-md-3">Name</th>
+			<th class="col-md-1">Status</th>  
+			<th class="col-md-1">Type</th>
+			<th class="col-md-2">Assigned To</th>
+			<th class="col-md-2">Due Date</th>
+			<th class="col-md-3">Project</th>
+		</tr>
+		
+		
+		<tr dir-paginate="task in tasks | itemsPerPage: 10 ">
+			<td></td>
+			<td>{{task.task_group.name}}</td>
+			<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
+			<td>{{task.name}}</td>
+			<td>{{task.task_status.name}}</td>  
+			<td>{{task.task_type.name}}</td>
+			<td><ul class="list-unstyled">
+			<li ng-repeat="assigned in task.assigned_to">{{assigned.full_name}}</li>
+			</ul></td>
+			<td>{{task.due_date  | amDateFormat:'LL'}}</td>
+			<td>{{task.project.name}}</td>
+		</tr>
+		</table>
+		<dir-pagination-controls></dir-pagination-controls>
+    </div>
+</div>

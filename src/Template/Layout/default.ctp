@@ -9,103 +9,52 @@
         <?= $this->Html->meta('icon') ?>
         <?= $this->Html->css('bootstrap.css') ?>
         <?= $this->Html->css('/font-awesome/css/font-awesome.css') ?>
-        <?= $this->Html->css('zabuto_calendar.css') ?>
-        <?= $this->Html->css('/js/gritter/css/jquery.gritter.css') ?>
-        <?= $this->Html->css('/lineicons/style.css'); ?>
         <!-- Custom Styles -->
         <?= $this->Html->css('style.css') ?>
-        <?= $this->Html->css('style-responsive.css') ?>
-        <?= $this->Html->script('chart-master/Chart.js')?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
     </head>
     <body ng-app="TaskManager">
     <base href="/">
-
-        <section id="container" >
-            <!-- TOP BAR CONTENT & NOTIFICATIONS -->
-            <!--header start-->
-            <?= $this->element('header'); ?>
-            <!--header end-->
-
-
-            <!-- MAIN SIDEBAR MENU -->
-            <?php
-            if ($this->request->session()->read('Auth.User.id') ) {
-            	echo $this->element('sidebar');
-            }
-            ?>
-            <!-- MAIN CONTENT  -->
-            <!--main content start-->
-            <section id="main-content">
-                <section class="wrapper">
-                    <div class="row" style="min-height: 100%; height: 100%;">
-                        <div class="col-md-12">
-                        	<?= $this->Flash->render() ?>
-                            <?= $this->fetch('content'); ?>
-                        </div>
-                    </div>
-                    <!--/row -->
-                </section>
-            </section>
-            <!--main content end-->
-        </section>
-
+    <?= $this->element('header'); ?>
+    
+    <div class="container-fluid">
+    <?php if ($this->request->session()->read('Auth.User.id') ) { ?>
+    <div class="col-sm-2">
+    		<?= $this->element('sidebar'); ?>
+    </div>
+    
+     
+     <div class="col-sm-10">
+     <?php } else { ?>
+     <div class="col-sm-12">
+      <?php } ?>
+     	<?= $this->Flash->render() ?>
+        <?= $this->fetch('content'); ?>
+     </div>
+    
+     </div>
+                        	
+                        
         <?= $this->element('footer'); ?>
 
-        <?= $this->Html->script('jquery.js'); ?>
-        <?= $this->Html->script('jquery-1.8.3.min.js'); ?>
+        <?= $this->Html->script('jquery-2.2.1.min.js'); ?>
         <?= $this->Html->script('bootstrap.min.js'); ?>
-        <?= $this->Html->script('jquery.dcjqaccordion.2.7.js'); ?>
-        <?= $this->Html->script('jquery.scrollTo.min.js'); ?>
-        <?= $this->Html->script('jquery.nicescroll.js'); ?>
-        <?= $this->Html->script('jquery.sparkline.js'); ?>
+        
         <!--common script for all pages-->
         <?= $this->Html->script('common-scripts.js'); ?>
-        <?= $this->Html->script('gritter/js/jquery.gritter.js'); ?>
-        <?= $this->Html->script('gritter-conf.js'); ?>
-        <!--script for this page-->
-        <?= $this->Html->script('sparkline-chart.js'); ?>
-        <?= $this->Html->script('zabuto_calendar.js'); ?>
+        <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js'); ?>
+        <!-- Angular Scrips -->
         <?= $this->Html->script('angular.min.js'); ?>
         <?= $this->Html->script('angular-route.min.js'); ?>
+        <?= $this->Html->script('angular-moment.min.js'); ?>
         <?= $this->Html->script('dirPagination.js'); ?>
+        <?= $this->Html->script('angular-animate.min.js'); ?>
+        <?= $this->Html->script('ui-bootstrap-tpls-1.1.2.min.js'); ?>
+        <?= $this->Html->script('tinymce.js'); ?>
         <?= $this->Html->script('controllers/controllers.js'); ?>
         <?= $this->Html->script('script.js'); ?>
-        <script type="application/javascript">
-            $(document).ready(function () {
-                $("#date-popover").popover({html: true, trigger: "manual"});
-                $("#date-popover").hide();
-                $("#date-popover").click(function (e) {
-                    $(this).hide();
-                });
-
-                $("#my-calendar").zabuto_calendar({
-                    action: function () {
-                        return myDateFunction(this.id, false);
-                    },
-                    action_nav: function () {
-                        return myNavFunction(this.id);
-                    },
-                    ajax: {
-                        url: "show_data.php?action=1",
-                        modal: true
-                    },
-                    legend: [
-                        {type: "text", label: "Special event", badge: "00"},
-                        {type: "block", label: "Regular event", }
-                    ]
-                });
-            });
-
-
-            function myNavFunction(id) {
-                $("#date-popover").hide();
-                var nav = $("#" + id).data("navigation");
-                var to = $("#" + id).data("to");
-                console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-            }
-        </script>
+        
     </body>
 </html>

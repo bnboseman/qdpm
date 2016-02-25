@@ -1,0 +1,26 @@
+<div ng-controller="ProjectsCtrl">
+ 
+    <div class="content-panel">
+       <h1>Projects</h1>
+       <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <table class="table table-responsive" ng-show="projects.length > 0">
+        <tr>
+            <th>Action</th>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Created</th>
+        </tr>
+        
+        <tr ng-repeat="project in projects">
+        <td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteProject(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
+            <td>{{project.id}}</td>
+            <td>{{project.project_status.name}}</td>
+            <td><a href="#/projects/{{project.id}}">{{project.name}}</a></td>
+            <td>{{project.project_type.name}}</td>
+            <td>{{project.created | amDateFormat:'LL'}}</td>
+        </tr>
+        </table>
+    </div>
+</div>

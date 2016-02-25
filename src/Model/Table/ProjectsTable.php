@@ -45,17 +45,15 @@ class ProjectsTable extends Table
 
         $this->addBehavior('OwnedBy', ['field' => 'created_by']);
 
-        $this->belongsTo('Status', [
-            'foreignKey' => 'project_status_id',
-        	'className' => 'ProjectStatus'
+        $this->belongsTo('ProjectStatus', [
+            'foreignKey' => 'project_status_id'
         ]);
         $this->belongsTo('Creator', [
         		'foreignKey' => 'created_by',
         		'className' => 'Users'
         ]);
-        $this->belongsTo('Types', [
-            'foreignKey' => 'project_types_id',
-        	'className' => 'ProjectTypes'
+        $this->belongsTo('ProjectTypes', [
+            'foreignKey' => 'project_types_id'
         ]);
         $this->hasMany('DiscussionReports', [
             'foreignKey' => 'project_id'
@@ -67,13 +65,12 @@ class ProjectsTable extends Table
         		'foreignKey' => 'bind_id',
         		'conditions' => ['Attachments.bind_type' => 'projects']
         ]);
-        $this->hasMany('Comments', [
+        $this->hasMany('ProjectComments', [
             'foreignKey' => 'project_id',
         	'className' => 'ProjectComments'
         ]);
-        $this->hasOne('Phases', [
+        $this->hasOne('ProjectPhases', [
             'foreignKey' => 'project_id',
-        	'className' => 'ProjectPhases'
         ]);
         $this->hasMany('Reports', [
             'foreignKey' => 'project_id',

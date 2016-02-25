@@ -1,0 +1,90 @@
+<div class="row nospace">
+    <div class="col-md-8">
+        <h2 class="h3 nospace">{{task.name}} [{{task.task_status.name}}]</h2>
+        <ul class="list-inline">
+            <li><a href="#"><i class="fa fa-comments-o"></i> Add Comment</a>
+            </li>
+            <li><a href="#"><i class="fa fa-pencil-square-o"></i> Edit Details</a>
+            </li>
+        </ul>
+        <div ng-bind-html="task.description | unsafe"></div>
+
+        <table class="table table-responsive ">
+        <tr><th>Action</th><th>Comment</th><th>Created At</th></tr>
+        <tr ng-repeat="comment in task.task_comments" >
+        <td class="col-xs-1"><i class="fa fa-minus-circle redicon"></i> <i class="fa fa-pencil-square-o"></i></td>
+        <td class="comments col-xs-8"><div ng-bind-html="comment.description | unsafe"></div></td>
+        <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY h:mm a'}}<br />
+        <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+        
+        	</tr>
+        </table>
+    </div>
+    
+    
+    <div class="col-md-4 bg-info">
+        <h3 class="nospace">Details</h3>
+        <table class="table table-condensed">
+
+            <tr>
+                <th>ID</th>
+                <td>{{task.id}}</td>
+            </tr>
+
+            <tr ng-show="task.task_label">
+                <th>Label</th>
+                <td>{{task.task_label.name}}</td>
+            </tr>
+
+            <tr ng-show="task.task_status">
+                <th>Status</th>
+                <td>{{task.task_status.name}}</td>
+            </tr>
+
+            <tr ng-show="task.task_type">
+                <th>Type</th>
+                <td>{{task.task_type.name}}</td>
+            </tr>
+
+            <tr ng-show="task.task_group">
+                <th>Group</th>
+                <td>{{task.task_group.name}}</td>
+            </tr>
+
+            <tr ng-show="task.project_phase">
+                <th>Phase</th>
+                <td>{{task.project_phase.name}}</td>
+            </tr>
+
+            <tr>
+                <th>Estimated Time</th>
+                <td>{{task.estimated_time}}</td>
+            </tr>
+
+            <tr>
+                <th>Start Date</th>
+                <td>{{task.start_date | amDateFormat:'LL' }}</td>
+            </tr>
+
+            <tr>
+                <th>Due Date</th>
+                <td>{{task.due_date | amDateFormat:'LL' }}</td>
+            </tr>
+
+            <tr>
+                <th>Created At</th>
+                <td>{{task.created | amDateFormat:'LL' }}</td>
+            </tr>
+        </table>
+
+        <h4 class="nospace">Assigned To</h3>
+			<ul class="list-unstyled">
+			<li ng-repeat="user in task.assigned_to"><a href="mailto:{{user.email}}">{{user.full_name}}</a></li>
+			</ul>
+			<h4>Created By</h4>
+        <ul class="list-unstyled">
+            <li><a href="mailto:{{task.creator.email}}">{{task.creator.full_name}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -45,25 +45,20 @@ class TasksTable extends Table
             'foreignKey' => 'project_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Status', [
+        $this->belongsTo('TaskStatus', [
             'foreignKey' => 'task_status_id',
-        	'className' => 'TaskStatus'
         ]);
-        $this->belongsTo('Priority', [
+        $this->belongsTo('TaskPriority', [
             'foreignKey' => 'task_priority_id',
-        	'className' => 'TaskPriority'
         ]);
-        $this->belongsTo('Types', [
+        $this->belongsTo('TaskTypes', [
             'foreignKey' => 'task_type_id',
-        	'className' => 'TaskTypes'
         ]);
-        $this->belongsTo('Labels', [
+        $this->belongsTo('TaskLabels', [
             'foreignKey' => 'task_label_id',
-        	'className' => 'TaskLabels'
         ]);
-        $this->belongsTo('Groups', [
-            'foreignKey' => 'task_groups_id',
-        	'className' => 'TaskGroups'
+        $this->belongsTo('TaskGroups', [
+            'foreignKey' => 'task_group_id',
         ]);
         $this->belongsTo('ProjectPhases', [
             'foreignKey' => 'project_phase_id'
@@ -81,13 +76,18 @@ class TasksTable extends Table
         		'foreignKey' => 'created_by',
         		'className' => 'Users'
         ]);
-        $this->hasMany('Comments', [
+        $this->hasMany('TaskComments', [
             'foreignKey' => 'task_id',
-        	'className' => 'TaskComments'
+        	'sort' => ['TaskComments.created' => 'Desc']
         ]);
         $this->hasMany('Attachments', [
         		'foreignKey' => 'bind_id',
         		'conditions' => ['Attachments.bind_type' => 'tasks']
+        ]);
+        
+        $this->belongsToMany('AssignedTo', [
+        	'className' => 'Users',
+        	'targetForeignKey' => 'user_id'
         ]);
     }
 

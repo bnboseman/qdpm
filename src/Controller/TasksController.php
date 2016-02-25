@@ -23,10 +23,19 @@ class TasksController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Projects', 'Status', 'Priority', 'Types', 'Labels', 'Groups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions']
-        ];
-        $this->set('tasks', $this->paginate($this->Tasks));
+        $this->set('tasks', $this->Tasks->find('all',  
+        		['contain' => 
+        				['Projects', 
+        				 'TaskStatus', 
+        				 'TaskPriority',
+        				 'TaskTypes', 
+        				 'TaskLabels',
+        				 'TaskGroups',
+        				 'ProjectPhases',
+        				 'Versions', 
+        				 'Projects', 
+        				 'AssignedTo']
+    ]));
         $this->set('_serialize', ['tasks']);
     }
 
@@ -39,9 +48,24 @@ class TasksController extends AppController
      */
     public function view($id = null)
     {
-        $task = $this->Tasks->get($id, [
-            'contain' => ['Projects', 'Status', 'Priority', 'Types', 'Labels', 'Groups', 'ProjectPhases', 'Versions', 'Tickets', 'Discussions', 'Comments']
-        ]);
+        $task = $this->Tasks->get($id, 
+        		['contain' =>
+        		['Projects',
+        				'TaskStatus',
+        				'TaskPriority',
+        				'TaskTypes',
+        				'TaskLabels',
+        				'TaskGroups',
+        				'ProjectPhases',
+        				'TaskComments',
+        				'TaskComments.Users',
+        				'TaskComments.TaskStatus',
+        				'TaskComments.TaskPriority',
+        				'Versions',
+        				'Creators',
+        				'AssignedTo']
+        				]
+        		);
         $this->set('task', $task);
         $this->set('_serialize', ['task']);
     }
@@ -64,11 +88,11 @@ class TasksController extends AppController
             }
         }
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $Status = $this->Tasks->Status->find('list', ['limit' => 200]);
-        $Priority = $this->Tasks->Priority->find('list', ['limit' => 200]);
-        $Types = $this->Tasks->Types->find('list', ['limit' => 200]);
-        $Labels = $this->Tasks->Labels->find('list', ['limit' => 200]);
-        $Groups = $this->Tasks->Groups->find('list', ['limit' => 200]);
+        $Status = $this->Tasks->TaskStatus->find('list', ['limit' => 200]);
+        $Priority = $this->Tasks->TaskPriority->find('list', ['limit' => 200]);
+        $Types = $this->Tasks->TaskTypes->find('list', ['limit' => 200]);
+        $Labels = $this->Tasks->TaskLabels->find('list', ['limit' => 200]);
+        $Groups = $this->Tasks->TaskGroups->find('list', ['limit' => 200]);
         $projectPhases = $this->Tasks->ProjectPhases->find('list', ['limit' => 200]);
         $versions = $this->Tasks->Versions->find('list', ['limit' => 200]);
         $tickets = $this->Tasks->Tickets->find('list', ['limit' => 200]);
@@ -99,11 +123,11 @@ class TasksController extends AppController
             }
         }
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
-        $priority = $this->Tasks->Priority->find('list', ['limit' => 200]);
-        $types = $this->Tasks->Types->find('list', ['limit' => 200]);
-        $labels = $this->Tasks->Labels->find('list', ['limit' => 200]);
-        $groups = $this->Tasks->Groups->find('list', ['limit' => 200]);
+        $status = $this->Tasks->TaskStatus->find('list', ['limit' => 200]);
+        $priority = $this->Tasks->TaskPriority->find('list', ['limit' => 200]);
+        $types = $this->Tasks->TaskTypes->find('list', ['limit' => 200]);
+        $labels = $this->Tasks->TaskLabels->find('list', ['limit' => 200]);
+        $groups = $this->Tasks->TaskGroups->find('list', ['limit' => 200]);
         $projectPhases = $this->Tasks->ProjectPhases->find('list', ['limit' => 200]);
         $versions = $this->Tasks->Versions->find('list', ['limit' => 200]);
         $tickets = $this->Tasks->Tickets->find('list', ['limit' => 200]);
