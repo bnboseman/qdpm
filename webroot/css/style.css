@@ -53,5 +53,11 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all; }
+.comments .attachments a {
+  display: inline-block;
+  margin-right: 20px; }
+.comments .description {
+  border-bottom: 1px solid rgba(94, 48, 121, 0.25);
+  margin-bottom: 5px; }
 
 /*# sourceMappingURL=style.css.map */

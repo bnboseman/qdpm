@@ -1,6 +1,8 @@
 //colors
 $color_boulder_approx: #787878;
 $purple: #5e3079;
+$purple25: rgba(94,48,121, .25);
+$purple50: rgba(94,48,121, .5);
 $white: #fff;
 $apple: rgba(51,200,51,0.55);
 $white_90: rgba(255,255,255,0.9);
@@ -76,4 +78,15 @@ footer {
         //Instead of the line below you could use @include word-break($value)
         word-break: break-all;
     }
+    
+    .attachments a {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    
+    .description {
+        border-bottom: 1px solid $purple25;
+        margin-bottom: 5px;
+    }
+   
 }

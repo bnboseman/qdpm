@@ -1,4 +1,4 @@
-<div class="row nospace">
+<div class="row nospace" ng-if="task.name.length > 0">
     <div class="col-md-8">
         <h2 class="h3 nospace">{{task.name}} [{{task.task_status.name}}]</h2>
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
@@ -15,8 +15,15 @@
         <tr ng-repeat="comment in task.task_comments" >
         <td class="col-xs-1"><a href="#" ng-click="deleteTaskComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
         <td class="comments col-xs-8">
-        
-        <div ng-bind-html="comment.description | unsafe"></div>
+        <div class="attachments" ng-show="comment.attachments.length > 0">
+        Attachments:
+        <ul class="fa-ul nospace">
+        <li ng-repeat="file in comment.attachments">
+            <a href="#">{{file.file}}</a> <a href="#"><i class="fa fa-search"></i> view</a> <a href="#"><i class="fa fa-download"></i> download</a>
+        </li>
+        </ul>
+        </div>
+        <div class="description" ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
         <ul class="fa-ul nospace">
             <li ng-show="comment.task_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.task_status.name}}</li>
             <li ng-show="comment.task_priority"> <i class="fa fa-angle-double-right"></i> Priority: {{comment.task_priority.name}}</li>
@@ -97,4 +104,7 @@
             </li>
         </ul>
     </div>
+</div>
+<div ng-else>
+<h1>Error</h1><em>This task could not be opened.</em>
 </div>

@@ -46,6 +46,10 @@ class TaskCommentsTable extends Table
         $this->belongsTo('Users', [
         		'foreignKey' => 'user_id'
         ]);
+         $this->hasMany('Attachments', [
+        		'foreignKey' => 'bind_id',
+        		'conditions' => ['Attachments.bind_type' => 'comments']
+        ]);
     }
 
     /**

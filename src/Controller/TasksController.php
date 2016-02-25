@@ -23,17 +23,17 @@ class TasksController extends AppController
      */
     public function index()
     {
-        $this->set('tasks', $this->Tasks->find('all',  
-        		['contain' => 
-        				['Projects', 
-        				 'TaskStatus', 
+        $this->set('tasks', $this->Tasks->find('all',
+        		['contain' =>
+        				['Projects',
+        				 'TaskStatus',
         				 'TaskPriority',
-        				 'TaskTypes', 
+        				 'TaskTypes',
         				 'TaskLabels',
         				 'TaskGroups',
         				 'ProjectPhases',
-        				 'Versions', 
-        				 'Projects', 
+        				 'Versions',
+        				 'Projects',
         				 'AssignedTo']
     ]));
         $this->set('_serialize', ['tasks']);
@@ -48,7 +48,7 @@ class TasksController extends AppController
      */
     public function view($id = null)
     {
-        $task = $this->Tasks->get($id, 
+        $task = $this->Tasks->get($id,
         		['contain' =>
         		['Projects',
         				'TaskStatus',
@@ -58,6 +58,7 @@ class TasksController extends AppController
         				'TaskGroups',
         				'ProjectPhases',
         				'TaskComments',
+        				'TaskComments.Attachments',
         				'TaskComments.Users',
         				'TaskComments.TaskStatus',
         				'TaskComments.TaskPriority',
