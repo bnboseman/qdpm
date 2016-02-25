@@ -38,13 +38,19 @@ Router::scope('/', function ($routes) {
 		$routes->resources('Comments', ['controller' => 'ticket_comments']);
 	});
 	$routes->resources('UserReports');
-	$routes->resources('Users');
+	$routes->resources('Users', [
+			'map' => [
+					'reports' => [
+							'action' => 'reports',
+							'method' => 'GET'
+					]
+			]
+	]);
 
 
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
-    $routes->connect('/reports', ['controller' => 'Users', 'action' => 'reports']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
 
