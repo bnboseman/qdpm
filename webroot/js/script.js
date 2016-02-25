@@ -63,8 +63,8 @@ app.config(['$routeProvider', '$locationProvider',
     ])
     .controller('TaskManagerCtrl', ['$scope', '$http',
         function($scope, $http) {
-            $http.get('user_reports.json').success(function(data) {
-                $scope.reports = data.userReports;
+            $http.get('/users/reports.json').success(function(data) {
+                $scope.reports = data;
             });
 
         }

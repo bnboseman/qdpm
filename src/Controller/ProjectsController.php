@@ -35,7 +35,7 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        $this->set('projects', $this->Projects->find('all', ['contain' =>['ProjectStatus','ProjectTypes','Creator', 'Team']])->toArray());
+        $this->set('projects', $this->Projects->find('all', ['contain' =>['ProjectStatus','ProjectTypes','Creator', 'Team']]));
         $this->set('_serialize', ['projects']);
     }
 
