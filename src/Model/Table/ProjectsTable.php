@@ -124,9 +124,6 @@ class ProjectsTable extends Table
             ->allowEmpty('description');
 
         $validator
-            ->allowEmpty('team');
-
-        $validator
             ->allowEmpty('order_task_by');
 
         return $validator;
