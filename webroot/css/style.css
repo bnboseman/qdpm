@@ -1,4 +1,10 @@
-body, html {
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 50px;
 }
 .navbar-static-top {
   margin-bottom:20px;
@@ -18,6 +24,11 @@ footer {
   padding-bottom:20px;
   background-color:#5e3079;
   color: #fff;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
 }
 
 /* count indicator near icons */
