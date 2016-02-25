@@ -1,0 +1,79 @@
+//colors
+$color_boulder_approx: #787878;
+$purple: #5e3079;
+$white: #fff;
+$apple: rgba(51,200,51,0.55);
+$white_90: rgba(255,255,255,0.9);
+$red: #f00;
+$black: #000;
+$color_gallery_approx: #eee;
+$footer-height: 50px;
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: $footer-height;
+}
+.navbar-static-top {
+    margin-bottom: 20px;
+}
+i {
+    font-size: 16px;
+}
+footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: $purple;
+    color: $white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
+}
+.site-footer {
+}
+.redicon {
+    color: $red;
+}
+.nospace {
+    margin: 0;
+}
+
+.nav > li {
+    > a {
+        color: $color_boulder_approx;
+    }
+    .count {
+        position: absolute;
+        bottom: 12px;
+        right: 6px;
+        font-size: 9px;
+        background: $apple;
+        color: $white_90;
+        line-height: 1em;
+        padding: 2px 4px;
+        //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+        border-radius: 10px;
+    }
+}
+.btn-info .nav > li > a {
+    color: $white;
+    &:hover {
+        color: $black;
+    }
+    &:focus {
+        color: $black;
+    }
+}
+.comments {
+    a {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        //Instead of the line below you could use @include word-break($value)
+        word-break: break-all;
+    }
+}

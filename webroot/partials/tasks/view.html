@@ -9,12 +9,21 @@
         </ul>
         <div ng-bind-html="task.description | unsafe"></div>
 
-        <table class="table table-responsive ">
+        <table ng-show="task.task_comments.length > 0" class="table table-responsive table-striped">
         <tr><th>Action</th><th>Comment</th><th>Created At</th></tr>
         <tr ng-repeat="comment in task.task_comments" >
-        <td class="col-xs-1"><i class="fa fa-minus-circle redicon"></i> <i class="fa fa-pencil-square-o"></i></td>
-        <td class="comments col-xs-8"><div ng-bind-html="comment.description | unsafe"></div></td>
-        <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY h:mm a'}}<br />
+        <td class="col-xs-1"><a href="#" ng-click="deleteTaskComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
+        <td class="comments col-xs-8">
+        
+        <div ng-bind-html="comment.description | unsafe"></div>
+        <ul class="fa-ul nospace">
+            <li ng-show="comment.task_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.task_status.name}}</li>
+            <li ng-show="comment.task_priority"> <i class="fa fa-angle-double-right"></i> Priority: {{comment.task_priority.name}}</li>
+            <li ng-show="comment.due_date"><i class="fa fa-angle-double-right"></i> Priority: {{comment.due_date | amDateFormat:'MMMM DD, YYYY'}}</li>
+        </ul>
+        </td>
+        <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br />
+        {{comment.created  | amDateFormat:'h:mm a'}}<br />
         <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
         
         	</tr>

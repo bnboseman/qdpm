@@ -9,3 +9,5 @@ lessphp_*
 .buildpath
 .project
 .settings
+.sass-cache
+style.css.map

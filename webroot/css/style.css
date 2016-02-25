@@ -1,77 +1,57 @@
 html {
   position: relative;
-  min-height: 100%;
-}
+  min-height: 100%; }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 50px;
-}
+  margin-bottom: 50px; }
+
 .navbar-static-top {
-  margin-bottom:20px;
-}
+  margin-bottom: 20px; }
 
 i {
-  font-size:16px;
-}
+  font-size: 16px; }
 
-.nav > li > a {
-  color:#787878;
-}
-  
 footer {
-  margin-top:20px;
-  padding-top:20px;
-  padding-bottom:20px;
-  background-color:#5e3079;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #5e3079;
   color: #fff;
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 50px;
-}
+  height: 50px; }
 
-/* count indicator near icons */
-.nav>li .count {
+.redicon {
+  color: #f00; }
+
+.nospace {
+  margin: 0; }
+
+.nav > li > a {
+  color: #787878; }
+.nav > li .count {
   position: absolute;
   bottom: 12px;
   right: 6px;
   font-size: 9px;
-  background: rgba(51,200,51,0.55);
-  color: rgba(255,255,255,0.9);
+  background: rgba(51, 200, 51, 0.55);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1em;
   padding: 2px 4px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  border-radius: 10px;
-}
-
-.site-footer {
-}
-
-.redicon {
-	color: #f00;
-}
+  border-radius: 10px; }
 
 .btn-info .nav > li > a {
- 	color: #fff;
- }
- 
- .btn-info .nav > li > a:hover, .btn-info .nav > li > a:focus {
- 	color: #000;
- }
- 
- .nospace {
- margin: 0;
- }
- 
-.commets {
- 	background-color: #eee;
- 	overflow-x: scroll;
- 	padding:20px;
- 	overflow: hidden;
-  white-space: nowrap;
+  color: #fff; }
+  .btn-info .nav > li > a:hover {
+    color: #000; }
+  .btn-info .nav > li > a:focus {
+    color: #000; }
+
+.comments a {
+  display: block;
+  overflow: hidden;
   text-overflow: ellipsis;
- }
+  word-break: break-all; }
+
+/*# sourceMappingURL=style.css.map */

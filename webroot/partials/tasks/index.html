@@ -6,7 +6,7 @@
 			<th>Action</th>
 			
 			<th>Group</th>
-			<th></th>
+            <th></th>
 			<th class="col-md-3">Name</th>
 			<th class="col-md-1">Status</th>  
 			<th class="col-md-1">Type</th>
@@ -17,7 +17,7 @@
 		
 		
 		<tr dir-paginate="task in tasks | itemsPerPage: 10 ">
-			<td></td>
+			<td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTask(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
 			<td>{{task.task_group.name}}</td>
 			<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
 			<td>{{task.name}}</td>
