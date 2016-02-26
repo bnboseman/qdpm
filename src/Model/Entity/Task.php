@@ -57,7 +57,6 @@ class Task extends Entity
     ];
     
     protected  $_hidden = [
-    		'project_id',
     		'task_priority_id',
     		'task_status_id',
     		'task_type_id',

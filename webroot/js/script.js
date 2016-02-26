@@ -58,12 +58,24 @@ app.directive('task', function() {
 	    restrict: 'E',
 	    templateUrl: '/partials/tasks/view.html',
 	    scope: {
-	        task: '=task'
+	        task: '=task',
+	        project: '=project'
 	      },
 	    controller: 'TasksCtrl'
 	  };
 });
 
+app.directive('ticket', function() {
+  return {
+	    restrict: 'E',
+	    templateUrl: '/partials/tickets/view.html',
+	    scope: {
+	        ticket: '=ticket',
+	        project: '=project'
+	      },
+	    controller: 'TasksCtrl'
+	  };
+});
 app.directive('projectNav', function() {
   return {
 	    restrict: 'E',
@@ -77,7 +89,19 @@ app.directive('userList', function() {
 	    restrict: 'E',
 	    templateUrl: '/partials/users/list.html',
 	    scope: {
-	        users: '=users'
+	        users: '=users',
+	        type: '=type'
+	      },
+	  };
+});
+
+app.directive('tasks', function() {
+  return {
+	    restrict: 'E',
+	    templateUrl: '/partials/tasks/index.html',
+	    scope: {
+	        tasks: '=tasks',
+	        project: '=project'
 	      },
 	  };
 });
@@ -108,10 +132,6 @@ app.config(['$routeProvider', '$locationProvider',
             templateUrl: '/partials/tasks/index.html',
             controller: 'TasksCtrl'
         }).
-        when('/tasks/:id', {
-            templateUrl: '/partials/tasks/view.html',
-            controller: 'TasksCtrl'
-        }).
         when('/tickets', {
             templateUrl: '/partials/tickets/index.html',
             controller: 'TicketsCtrl'
@@ -136,23 +156,15 @@ app.config(['$routeProvider', '$locationProvider',
         $scope.projects = {};
         $scope.view = null;
         $scope.task = {};
-        
-        $scope.selectView = function(view) {
-        	$scope.view = view;
-        	$scope.task = {};
-        	 
-        	if (view.page == 'task') {
-        		Task.read(view.id).success(function(data) {
-                    $scope.task = data.task;
-                });
-        	}
-        }
+        console.log($routeParams);
        
         if ($routeParams.project_id !== undefined && $routeParams.task_id !== undefined) {
-        	Project.read($routeParams.id).success(function(data) {
+        	Project.read($routeParams.project_id ).success(function(data) {
                 $scope.project = data.project;
             });
-        	$scope.selectView({'page':'task', 'id': $routeParams.task_id});
+        	Task.read($routeParams.task_id ).success(function(data) {
+                $scope.task = data.task;
+            });
         } else if ($routeParams.project_id !== undefined) {
         	Project.read($routeParams.project_id).success(function(data) {
                 $scope.project = data.project;

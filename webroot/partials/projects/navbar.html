@@ -1,53 +1,53 @@
 <nav class="navbar btn-info">
 		  <ul class="nav navbar-nav">
-		  <li><p class="navbar-text">Project Info</p></li>
+		  <li><a href="/#/projects/{{project.id}}">Project Info</a></li>
 		  <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#" >Add Task</a></li>
-            <li><a href="#" ng-click="selectView({'page':'tasks'});$event.stopPropagation(); $event.preventDefault();">View All</a></li>
-            <li><a href="#">Add Task Group</a></li>
-            <li><a href="#">View Groups</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();" >Add Task</a></li>
+            <li><a href="/#/projects/{{project.id}}/tasks/">View All</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Add Task Group</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">View Groups</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tickets <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Add Tickets</a></li>
-            <li><a href="#">View All</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Add Tickets</a></li>
+            <li><a href="/#/projects/{{project.id}}/tickets/" ng-click="$event.stopPropagation(); $event.preventDefault();">View All</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Discusions <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Add Discusion</a></li>
-            <li><a href="#">View All</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Add Discusion</a></li>
+            <li><a href="/#/projects/{{project.id}}/discussions/" ng-click="$event.stopPropagation(); $event.preventDefault();">View All</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Versions <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Add Versions</a></li>
-            <li><a href="#">View All</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Add Versions</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">View All</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Phases <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Add Phases</a></li>
-            <li><a href="#">View All</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Add Phases</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">View All</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Time Report</a></li>
-            <li><a href="#">Gantt Chart</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Time Report</a></li>
+            <li><a href="#" ng-click="$event.stopPropagation(); $event.preventDefault();">Gantt Chart</a></li>
           </ul>
         </li>
 		  </ul>

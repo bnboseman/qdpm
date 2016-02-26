@@ -1,4 +1,4 @@
-<div class="row nospace" ng-if="task.name.length > 0">
+<div class="row content-panel" ng-if="task.name.length > 0">
     <div class="col-md-8">
         <h2 class="h3 nospace">{{task.name}} [{{task.task_status.name}}]</h2>
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
@@ -95,9 +95,7 @@
         </table>
 
         <h4 class="nospace">Assigned To</h3>
-			<ul class="list-unstyled">
-			<li ng-repeat="user in task.assigned_to"><a href="mailto:{{user.email}}">{{user.full_name}}</a></li>
-			</ul>
+			<user-list users="task.assigned_to"></user-list>
 			<h4>Created By</h4>
         <ul class="list-unstyled">
             <li><a href="mailto:{{task.creator.email}}">{{task.creator.full_name}}</a>

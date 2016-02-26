@@ -1,35 +1,31 @@
-<div ng-controller="TasksCtrl">
- <div class="content-panel">
-       <h1>Tasks</h1>
-        		<table class="table">
-		<tr>
-			<th>Action</th>
-			
-			<th>Group</th>
-            <th></th>
-			<th class="col-md-3">Name</th>
-			<th class="col-md-1">Status</th>  
-			<th class="col-md-1">Type</th>
-			<th class="col-md-2">Assigned To</th>
-			<th class="col-md-2">Due Date</th>
-			<th class="col-md-3">Project</th>
-		</tr>
+<div class="content-panel">
+      <h1>Tasks</h1>
+       		<table class="table">
+	<tr>
+		<th>Action</th>
 		
-		
-		<tr dir-paginate="task in tasks | itemsPerPage: 10 ">
-			<td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTask(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
-			<td>{{task.task_group.name}}</td>
-			<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
-			<td><a href="/#/tasks/{{task.id}}">{{task.name}}</a></td>
-			<td>{{task.task_status.name}}</td>  
-			<td>{{task.task_type.name}}</td>
-			<td><ul class="list-unstyled">
-			<li ng-repeat="assigned in task.assigned_to">{{assigned.full_name}}</li>
-			</ul></td>
-			<td>{{task.due_date  | amDateFormat:'LL'}}</td>
-			<td>{{task.project.name}}</td>
-		</tr>
-		</table>
-		<dir-pagination-controls></dir-pagination-controls>
-    </div>
-</div>
+		<th>Group</th>
+           <th></th>
+		<th class="col-md-3">Name</th>
+		<th class="col-md-1">Status</th>  
+		<th class="col-md-1">Type</th>
+		<th class="col-md-2">Assigned To</th>
+		<th class="col-md-2">Due Date</th>
+		<th class="col-md-3" ng-show="{{!project}}">Project</th>
+	</tr>
+	
+	
+	<tr dir-paginate="task in tasks | itemsPerPage: 10 ">
+		<td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTask(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
+		<td>{{task.task_group.name}}</td>
+		<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
+		<td><a href="/#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a></td>
+		<td>{{task.task_status.name}}</td>  
+		<td>{{task.task_type.name}}</td>
+		<td><user-list users="task.assigned_to" type="'unstyled'"></user-list></td>
+		<td>{{task.due_date  | amDateFormat:'LL'}}</td>
+		<td ng-show="{{!project}}">{{task.project.name}}</td>
+	</tr>
+	</table>
+	<dir-pagination-controls></dir-pagination-controls>
+   </div>
