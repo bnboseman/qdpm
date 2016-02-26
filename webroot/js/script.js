@@ -196,8 +196,8 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: '/partials/projects/tickets.html',
                 controller: 'ProjectsCtrl'
             }).
-            when('/tickets/:ticket_id', {
-                templateUrl: '/partials/tickets/view.html',
+            when('/tickets', {
+            	templateUrl: '/partials/tickets/index.html',
                 controller: 'TicketsCtrl'
             })
         }
@@ -235,7 +235,6 @@ app.config(['$routeProvider', '$locationProvider',
             } else if ($routeParams.project_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
                     $scope.project = data.project;
-                    console.log($scope.project.tickets);
                 });
             } else {
                 Project.all().success(function(data) {
@@ -328,12 +327,11 @@ app.config(['$routeProvider', '$locationProvider',
         }
     ]).controller('TicketsCtrl', ['$scope', '$http', '$routeParams', 'Ticket',
         function($scope, $http, $routeParams, Ticket) {
-            $scope.ticket = {};
-            $scope.tickets = {};
+            $scope.ticket = null;
+            $scope.tickets = null;
             $scope.view = null;
             $scope.alerts = [];
 
-            console.log($routeParams);
             if ($routeParams.ticket_id !== undefined) {
                 Ticket.read($routeParams.ticket_id).success(function(data) {
                     $scope.ticket = data.ticket;
@@ -342,7 +340,7 @@ app.config(['$routeProvider', '$locationProvider',
             } else {
                 Ticket.all().success(function(data) {
                     $scope.tickets = data.tickets;
-                    $scope.view = 'index';
+                    console.log($scope.tickets)
                 });
             }
 
