@@ -20,7 +20,7 @@
 			<td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTask(project);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
 			<td>{{task.task_group.name}}</td>
 			<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
-			<td>{{task.name}}</td>
+			<td><a href="/#/tasks/{{task.id}}">{{task.name}}</a></td>
 			<td>{{task.task_status.name}}</td>  
 			<td>{{task.task_type.name}}</td>
 			<td><ul class="list-unstyled">

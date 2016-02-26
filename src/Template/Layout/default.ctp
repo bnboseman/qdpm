@@ -44,7 +44,7 @@
         
         <!--common script for all pages-->
         <?= $this->Html->script('common-scripts.js'); ?>
-        <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js'); ?>
+        <?= $this->Html->script('moment.min.js'); ?>
         <!-- Angular Scrips -->
         <?= $this->Html->script('angular.min.js'); ?>
         <?= $this->Html->script('angular-route.min.js'); ?>
