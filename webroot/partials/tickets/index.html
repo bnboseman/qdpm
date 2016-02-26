@@ -1,9 +1,7 @@
-<div ng-controller="TicketsCtrl">
- 
-    <div class="content-panel">
-       <h1>Tickets</h1>
-       <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-        <table class="table table-responsive table-striped" ng-show="tickets.length > 0">
+<div class="content-panel">
+    <h1>Tickets</h1>
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    <table class="table table-responsive table-striped" ng-show="tickets.length > 0">
         <tr>
             <th>Action</th>
             <th>ID</th>
@@ -11,22 +9,21 @@
             <th class="col-xs-4">Name</th>
             <th class="col-xs-2">Type</th>
             <th class="col-xs-1">Department</th>
-            
-            <th class="col-xs-3">Project</th>
+
+            <th class="col-xs-3"  ng-show="{{!project}}">Project</th>
             <th class="col-xs-2">Created</th>
         </tr>
-        
+
         <tr dir-paginate="ticket in tickets | itemsPerPage: 10">
-        <td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTicket(ticket);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
+            <td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTicket(ticket);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
             <td>{{ticket.id}}</td>
             <td>{{ticket.ticket_status.name}}</td>
-            <td><a href="#/tickets/{{ticket.id}}">{{ticket.name}}</a></td>
+            <td><a href="#/projects/{{ticket.project_id}}/tickets/{{ticket.id}}">{{ticket.name}}</a></td>
             <td>{{ticket.ticket_type.name}}</td>
             <td>{{ticket.department.name}}</td>
-            <td>{{ticket.project.name}}</td>
+            <td  ng-show="{{!project}}">{{ticket.project.name}}</td>
             <td>{{ticket.created | amDateFormat:'LL'}}</td>
         </tr>
-        </table>
-        <dir-pagination-controls></dir-pagination-controls>
-    </div>
+    </table>
+    <dir-pagination-controls></dir-pagination-controls>
 </div>

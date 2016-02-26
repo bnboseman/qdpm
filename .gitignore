@@ -11,3 +11,4 @@ lessphp_*
 .settings
 .sass-cache
 style.css.map
+*.log

@@ -64,7 +64,12 @@ class ProjectsController extends AppController
             		'Tasks.TaskPriority',
             		'Tasks.AssignedTo',
             		'Tasks.TaskStatus',
-            		'Tickets']
+            		'Tickets',
+            		'Tickets.Departments',
+            		'Tickets.TicketTypes',
+            		'Tickets.TicketStatus',
+            		'Tickets.Users'
+            ]
         ]);
         $this->set('project', $project);
         $this->set('_serialize', ['project']);

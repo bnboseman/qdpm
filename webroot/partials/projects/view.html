@@ -1,6 +1,6 @@
 <div class="row content-panel">
-<h1 class="nospace">{{project.name}}</h1>
-<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    <h1 class="nospace">{{project.name}}</h1>
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
     <ul class="list-inline">
         <li><strong>Status: </strong> {{project.status.name}}</li>
         <li><strong>Type: </strong> {{project.type.name}}</li>
@@ -10,83 +10,76 @@
     </ul>
     <div class="content-panel">
         <project-nav></project-nav>
-    <div class="col-md-8">
-        
-        <ul class="list-inline">
-            <li>Status: {{project.project_status.name}}</li>
-            <li>Type: {{project.project_type.name}}</li>
-            <li><a href="#">More Info</a>
-            </li>
-            <li><a href="#"> Edit Details</a>
-            </li>
-        </ul>
-        <div ng-bind-html="project.description | unsafe"></div>
+        <div class="col-md-8">
 
-        <table ng-show="project.project_comments.length > 0" class="table table-responsive table-striped">
-            <tr>
-                <th>Action</th>
-                <th>Comment</th>
-                <th>Created At</th>
-            </tr>
-            <tr ng-repeat="comment in project.project_comments">
-                <td class="col-xs-1"><a href="#" ng-click="deleteProjectComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i>
-                </td>
-                <td class="comments col-xs-8">
-                    <div class="attachments" ng-show="comment.attachments.length > 0">
-                        Attachments:
-                        <ul class="fa-ul nospace">
-                            <li ng-repeat="file in comment.attachments">
-                                <a href="#">{{file.file}}</a> <a href="#"><i class="fa fa-search"></i> view</a> <a href="#"><i class="fa fa-download"></i> download</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
-                </td>
-                <td class="col-xs-3">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}
-                    <br /> {{comment.created | amDateFormat:'h:mm a'}}
-                    <br />
-                    <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+            <ul class="list-inline">
+                <li>Status: {{project.project_status.name}}</li>
+                <li>Type: {{project.project_type.name}}</li>
+                <li><a href="#">More Info</a>
+                </li>
+                <li><a href="#"> Edit Details</a>
+                </li>
+            </ul>
+            <div ng-bind-html="project.description | unsafe"></div>
 
-            </tr>
-        </table>
-    </div>
+            <table ng-show="project.project_comments.length > 0" class="table table-responsive table-striped">
+                <tr>
+                    <th>Action</th>
+                    <th>Comment</th>
+                    <th>Created At</th>
+                </tr>
+                <tr ng-repeat="comment in project.project_comments">
+                    <td class="col-xs-1"><a href="#" ng-click="deleteProjectComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i>
+                    </td>
+                    <td class="comments col-xs-8">
+                        <attachments-list attachments="comment.attachments"></attachments-list>
+                        <div ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
+                    </td>
+                    <td class="col-xs-3">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}
+                        <br /> {{comment.created | amDateFormat:'h:mm a'}}
+                        <br />
+                        <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+
+                </tr>
+            </table>
+        </div>
 
 
-    <div class="col-md-4 bg-info">
-        <h3 class="nospace">Details</h3>
-        <table class="table table-condensed">
+        <div class="col-md-4 bg-info">
+            <h3 class="nospace">Details</h3>
+            <table class="table table-condensed">
 
-            <tr>
-                <th>ID</th>
-                <td>{{project.id}}</td>
-            </tr>
-            <tr ng-show="project.project_status">
-                <th>Status</th>
-                <td>{{project.project_.name}}</td>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <td>{{project.id}}</td>
+                </tr>
+                <tr ng-show="project.project_status">
+                    <th>Status</th>
+                    <td>{{project.project_.name}}</td>
+                </tr>
 
-            <tr ng-show="project.project_type">
-                <th>Type</th>
-                <td>{{project.project_type.name}}</td>
-            </tr>
+                <tr ng-show="project.project_type">
+                    <th>Type</th>
+                    <td>{{project.project_type.name}}</td>
+                </tr>
 
-            <tr>
-                <th>Created By:</th>
-                <td>{{project.due_date | amDateFormat:'LL' }}</td>
-            </tr>
+                <tr>
+                    <th>Created By:</th>
+                    <td>{{project.due_date | amDateFormat:'LL' }}</td>
+                </tr>
 
-            <tr>
-                <th>Created At</th>
-                <td>{{project.created | amDateFormat:'LL' }}</td>
-            </tr>
-        </table>
+                <tr>
+                    <th>Created At</th>
+                    <td>{{project.created | amDateFormat:'LL' }}</td>
+                </tr>
+            </table>
 
-        <h4 class="nospace">Assigned To</h3>
+            <h4 class="nospace">Assigned To</h3>
 			<user-list users="project.team"></user-list>
 		
 		<h4>Created By</h4>
-        <ul class="fa-ul nospace">
-            <li><i class="fa fa-angle-double-right"></i> <a href="mailto:{{project.creator.email}}">{{project.creator.full_name}}</a></li>
-        </ul>
+            <ul class="fa-ul nospace">
+                <li><i class="fa fa-angle-double-right"></i> <a href="mailto:{{project.creator.email}}">{{project.creator.full_name}}</a></li>
+            </ul>
+        </div>
     </div>
-</div>

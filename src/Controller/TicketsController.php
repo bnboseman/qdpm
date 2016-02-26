@@ -13,23 +13,22 @@ class TicketsController extends AppController
 
 public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
-	
+
 		// Allow all users to logout and see dashboard
 		if (in_array ( $action, ['index'] ) && ! empty ( $user )) {
 			return true;
 		}
-		
+
 		if (in_array ( $action, [
 				'view',
 				'edit',
 				'delete'
-		] ) && $this->Tickets->exists(
-				['user_id' => $user['id'], 
-				 'id' => $this->request->params ['pass'] [0]
-				] ) ) {
+		] ) && ($user['user_group']['allow_manage_tasks'] ||
+				$user['user_group']['allow_view_all']  ||
+				$user['user_group']['allow_manage_task_viewonly']) ) {
 			return true;
 		}
-	
+
 		return parent::isAuthorized ( $user );
 	}
     /**
@@ -42,7 +41,7 @@ public function isAuthorized($user) {
         $this->paginate = [
             'contain' => ['Attachments', 'Departments', 'TicketTypes', 'TicketStatus', 'Users', 'Projects']
         ];
-        $this->set('tickets', $this->paginate($this->Tickets));
+        $this->set('tickets', $this->Tickets->find('all'));
         $this->set('_serialize', ['tickets']);
     }
 
@@ -56,7 +55,18 @@ public function isAuthorized($user) {
     public function view($id = null)
     {
         $ticket = $this->Tickets->get($id, [
-            'contain' => ['Departments', 'Types', 'TicketStatus', 'Users', 'Projects', 'Tasks', 'Comments']
+            'contain' => ['Departments',
+            		'Departments.Supervisors',
+            		'TicketTypes',
+            		'TicketStatus',
+            		'Users',
+            		'Projects',
+            		'Tasks',
+            		'Tasks.TaskStatus',
+            		'Comments',
+            		'Comments.Users',
+            		'Comments.Attachments',
+            		'Comments.TicketStatus']
         ]);
         $this->set('ticket', $ticket);
         $this->set('_serialize', ['ticket']);

@@ -1,5 +1,5 @@
 <div class="row content-panel" ng-if="task.name.length > 0">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <h2 class="h3 nospace">{{task.name}} [{{task.task_status.name}}]</h2>
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
         <ul class="list-inline">
@@ -8,38 +8,37 @@
             <li><a href="#"><i class="fa fa-pencil-square-o"></i> Edit Details</a>
             </li>
         </ul>
-        <div ng-bind-html="task.description | unsafe"></div>
+        <div class="description" ng-bind-html="task.description | unsafe"></div>
 
+        <p>
+            <a class="btn btn-primary btn-xs" href="#">Add Comment</a>
+        </p>
         <table ng-show="task.task_comments.length > 0" class="table table-responsive table-striped">
-        <tr><th>Action</th><th>Comment</th><th>Created At</th></tr>
-        <tr ng-repeat="comment in task.task_comments" >
-        <td class="col-xs-1"><a href="#" ng-click="deleteTaskComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
-        <td class="comments col-xs-8">
-        <div class="attachments" ng-show="comment.attachments.length > 0">
-        Attachments:
-        <ul class="fa-ul nospace">
-        <li ng-repeat="file in comment.attachments">
-            <a href="#">{{file.file}}</a> <a href="#"><i class="fa fa-search"></i> view</a> <a href="#"><i class="fa fa-download"></i> download</a>
-        </li>
-        </ul>
-        </div>
-        <div class="description" ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
-        <ul class="fa-ul nospace">
-            <li ng-show="comment.task_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.task_status.name}}</li>
-            <li ng-show="comment.task_priority"> <i class="fa fa-angle-double-right"></i> Priority: {{comment.task_priority.name}}</li>
-            <li ng-show="comment.due_date"><i class="fa fa-angle-double-right"></i> Priority: {{comment.due_date | amDateFormat:'MMMM DD, YYYY'}}</li>
-        </ul>
-        </td>
-        <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br />
-        {{comment.created  | amDateFormat:'h:mm a'}}<br />
-        <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
-        
-        	</tr>
+            <tr>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Created At</th>
+            </tr>
+            <tr ng-repeat="comment in task.task_comments">
+                <td class="col-xs-1"><a href="#" ng-click="deleteTaskComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
+                <td class="comments col-xs-8">
+                    <attachments-list attachments="comment.attachments"></attachments-list>
+                    <div class="description" ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
+                    <ul class="fa-ul nospace">
+                        <li ng-show="comment.task_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.task_status.name}}</li>
+                        <li ng-show="comment.task_priority"> <i class="fa fa-angle-double-right"></i> Priority: {{comment.task_priority.name}}</li>
+                        <li ng-show="comment.due_date"><i class="fa fa-angle-double-right"></i> Priority: {{comment.due_date | amDateFormat:'MMMM DD, YYYY'}}</li>
+                    </ul>
+                </td>
+                <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br /> {{comment.created | amDateFormat:'h:mm a'}}<br />
+                    <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+
+            </tr>
         </table>
     </div>
-    
-    
-    <div class="col-md-4 bg-info">
+
+
+    <div class="col-md-3 bg-info">
         <h3 class="nospace">Details</h3>
         <table class="table table-condensed">
 

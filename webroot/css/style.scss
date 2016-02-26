@@ -84,18 +84,33 @@ footer {
         margin-right: 20px;
     }
     
-    .description {
-        border-bottom: 1px solid $purple25;
-        margin-bottom: 5px;
-    }
+    
    
 }
-
+.description {
+    margin-bottom: 10px;
+}
+    
 .content-panel {
     margin: 10px 0;
 }
 
 .nav-header > a {
     border-bottom: 1px solid $purple25;
+    
+}
+
+.bg-info h3 {
+    margin: 0 5px;
+}
+
+.col-md-3 .bg-info {
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.attachments td {
+    border: 0 !important;
+    padding: 0 !important;
     
 }

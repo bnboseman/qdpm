@@ -1,0 +1,19 @@
+<div class="attachments" ng-show="attachments.length > 0">
+    <strong>Attachments</strong>
+    <table class="table table-hover">
+        <tr ng-repeat="file in attachments">
+            <td class="col-xs-8">
+                <a href="#">{{file.file}}</a>
+            </td>
+
+            <td class="col-xs-2">
+                <a href="#"><i class="fa fa-search"></i> view</a>
+            </td>
+
+            <td class="col-xs-2">
+                <a href="#"><i class="fa fa-download"></i> download</a>
+            </td>
+        </tr>
+    </table>
+
+</div>

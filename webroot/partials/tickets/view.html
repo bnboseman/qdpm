@@ -1,3 +1,66 @@
 <div class="row content-panel" ng-if="ticket.name.length > 0">
-	<div class="col-md-8">
-		<h2 class="h3 nospace">{{ticekt.name}}</h2>
+    <div class="col-md-9">
+        <h2 class="h2 nospace">{{ticket.name}}</h2>
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        <ul class="list-inline">
+            <li><a href="#"><i class="fa fa-comments-o"></i> Add Comment</a>
+            </li>
+            <li><a href="#"><i class="fa fa-pencil-square-o"></i> Edit Details</a>
+            </li>
+        </ul>
+        <div ng-bind-html="ticket.description | unsafe"></div>
+
+        <table ng-show="ticket.comments.length > 0" class="table table-responsive table-striped">
+            <tr ng-repeat="comment in ticket.comments">
+                <td class="col-xs-1"><a href="#" ng-click="deleteTicketComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
+                <td class="comments col-xs-8">
+                    <attachments-list attachments="comment.attachments"></attachments-list>
+                    <div ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
+                    <ul class="fa-ul nospace">
+                        <li ng-show="comment.ticket_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.ticket_status.name}}</li>
+                    </ul>
+                </td>
+                <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br /> {{comment.created | amDateFormat:'h:mm a'}}<br />
+                    <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+
+            </tr>
+        </table>
+        </table>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-info">
+            <div class="related-tasks" ng-show="ticket.tasks.length > 0">
+                <h3>Related Tasks</h3>
+                <table class="table table-responsive">
+                    <tr ng-repeat="task in ticket.tasks">
+                        <td><a href="#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a> [{{task.task_status.name}}]</td>
+                        <td class="text-right"> <a href="#" ng-click="deleteTask(task.id);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></td>
+        </tr>
+        </table>
+        </div>
+        
+        <h3 class="nospace">Details</h3>
+        <table class="table table-repsonsive">
+            <tr>
+                <th>ID</th>
+                <td>{{ticket.id}}</td>
+            </tr>
+            
+            <tr>
+                <th>Status</th>
+                <td>{{ticket.ticket_status.name}}</td>
+            </tr>
+            
+            <tr>
+                <th>Type</th>
+                <td>{{ticket.ticket_type.name}}</td>
+            </tr>
+            
+            <tr>
+                <th>Created at</th>
+                <td>{{ticket.created | amDateFormat:'LL'}}</td>
+            </tr>
+        </table>
+</div>

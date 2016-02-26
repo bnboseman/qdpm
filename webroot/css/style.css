@@ -56,14 +56,25 @@ footer {
 .comments .attachments a {
   display: inline-block;
   margin-right: 20px; }
-.comments .description {
-  border-bottom: 1px solid rgba(94, 48, 121, 0.25);
-  margin-bottom: 5px; }
+
+.description {
+  margin-bottom: 10px; }
 
 .content-panel {
   margin: 10px 0; }
 
 .nav-header > a {
   border-bottom: 1px solid rgba(94, 48, 121, 0.25); }
+
+.bg-info h3 {
+  margin: 0 5px; }
+
+.col-md-3 .bg-info {
+  padding: 10px;
+  border-radius: 7px; }
+
+.attachments td {
+  border: 0 !important;
+  padding: 0 !important; }
 
 /*# sourceMappingURL=style.css.map */
