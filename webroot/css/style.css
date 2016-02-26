@@ -60,4 +60,10 @@ footer {
   border-bottom: 1px solid rgba(94, 48, 121, 0.25);
   margin-bottom: 5px; }
 
+.content-panel {
+  margin: 10px 0; }
+
+.nav-header > a {
+  border-bottom: 1px solid rgba(94, 48, 121, 0.25); }
+
 /*# sourceMappingURL=style.css.map */

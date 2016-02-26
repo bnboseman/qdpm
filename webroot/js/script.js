@@ -14,6 +14,9 @@ app.factory("Project", function ProjectFactory($http) {
 		},
 		remove: function(id) {
 			return $http({method: "DELETE", url:'/projects/' + id + '.json', data: id});
+		},
+		removeComment: function(project_id, comment_id) {
+			return $http({method: "DELETE", url:'/projects/' + project_id + '/project_comments/' + comment_id + '.json', data: comment_id});
 		}
 	}
 });
@@ -53,7 +56,7 @@ app.factory("Ticket", function TicketFactory($http) {
 app.directive('task', function() {
   return {
 	    restrict: 'E',
-	    templateUrl: 'partials/tasks/view.html',
+	    templateUrl: '/partials/tasks/view.html',
 	    scope: {
 	        task: '=task'
 	      },
@@ -61,39 +64,60 @@ app.directive('task', function() {
 	  };
 });
 
+app.directive('projectNav', function() {
+  return {
+	    restrict: 'E',
+	    templateUrl: '/partials/projects/navbar.html',
+	    transclude: true
+	  };
+});
+
+app.directive('userList', function() {
+  return {
+	    restrict: 'E',
+	    templateUrl: '/partials/users/list.html',
+	    scope: {
+	        users: '=users'
+	      },
+	  };
+});
 app.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
         $routeProvider.
         when('/', {
-            templateUrl: 'partials/dashboard.html',
+            templateUrl: '/partials/dashboard.html',
             controller: 'TaskManagerCtrl'
         }).
         when('/projects', {
-            templateUrl: 'partials/projects/index.html',
+            templateUrl: '/partials/projects/index.html',
             controller: 'ProjectsCtrl'
         }).
-        when('/projects/:id', {
-            templateUrl: 'partials/projects/view.html',
+        when('/projects/:project_id/tasks', {
+            templateUrl: '/partials/projects/tasks.html',
+            controller: 'ProjectsCtrl'
+        }).
+        when('/projects/:project_id', {
+            templateUrl: '/partials/projects/view.html',
             controller: 'ProjectsCtrl'
         }).
         when('/projects/:project_id/tasks/:task_id', {
-            templateUrl: 'partials/projects/view.html',
+            templateUrl: '/	partials/projects/task.html',
             controller: 'ProjectsCtrl'
         }).
         when('/tasks', {
-            templateUrl: 'partials/tasks/index.html',
+            templateUrl: '/partials/tasks/index.html',
             controller: 'TasksCtrl'
         }).
         when('/tasks/:id', {
-            templateUrl: 'partials/tasks/view.html',
+            templateUrl: '/partials/tasks/view.html',
             controller: 'TasksCtrl'
         }).
         when('/tickets', {
-            templateUrl: 'partials/tickets/index.html',
+            templateUrl: '/partials/tickets/index.html',
             controller: 'TicketsCtrl'
         }).
         when('/tickets/:id', {
-            templateUrl: 'partials/tickets/view.html',
+            templateUrl: '/partials/tickets/view.html',
             controller: 'TicketsCtrl'
         })
     }
@@ -129,8 +153,8 @@ app.config(['$routeProvider', '$locationProvider',
                 $scope.project = data.project;
             });
         	$scope.selectView({'page':'task', 'id': $routeParams.task_id});
-        } else if ($routeParams.id !== undefined) {
-        	Project.read($routeParams.id).success(function(data) {
+        } else if ($routeParams.project_id !== undefined) {
+        	Project.read($routeParams.project_id).success(function(data) {
                 $scope.project = data.project;
             });
         } else {
@@ -155,6 +179,20 @@ app.config(['$routeProvider', '$locationProvider',
         	}
         };
         
+        $scope.deleteProjectComment = function(comment) {
+        	var confirmDelete = confirm("Are you sure?");
+        	if ( confirmDelete ) {
+        		Project.removeComment(comment.project_id, comment.id).success(function() {
+        			Project.read(comment.project_id).success(function(data) {
+                        $scope.project = data.project;
+                        $scope.alerts.push({type: 'success', msg: 'The comment has been deleted.'});
+                    });
+                })
+                .error(function(data) {
+                	$scope.alerts.push({type: 'danger', msg: "Comment could not be deleted. " + data.message});
+                });
+        	}
+        };
         $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
           };

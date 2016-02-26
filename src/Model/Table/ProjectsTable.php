@@ -49,11 +49,11 @@ class ProjectsTable extends Table
             'foreignKey' => 'project_status_id'
         ]);
         $this->belongsTo('Creator', [
-        		'foreignKey' => 'created_by',
+        		'foreignKey' => 'user_id',
         		'className' => 'Users'
         ]);
         $this->belongsTo('ProjectTypes', [
-            'foreignKey' => 'project_types_id'
+            'foreignKey' => 'project_type_id'
         ]);
         $this->hasMany('DiscussionReports', [
             'foreignKey' => 'project_id'

@@ -12,6 +12,13 @@ class ProjectCommentsTableTest extends TestCase
 {
 
     /**
+     * Test subject
+     *
+     * @var \App\Model\Table\ProjectCommentsTable
+     */
+    public $ProjectComments;
+
+    /**
      * Fixtures
      *
      * @var array
@@ -20,35 +27,43 @@ class ProjectCommentsTableTest extends TestCase
         'app.project_comments',
         'app.projects',
         'app.project_status',
-        'app.discussion_reports',
-        'app.users',
+        'app.creator',
         'app.user_groups',
-        'app.departments',
+        'app.department',
+        'app.roles',
         'app.discussion_comments',
+        'app.discussion_reports',
         'app.discussions',
-        'app.discussion_status',
-        'app.tasks',
-        'app.task_status',
-        'app.task_comments',
-        'app.task_priority',
-        'app.user_reports',
-        'app.project_types',
+        'app.users',
+        'app.events',
         'app.project_reports',
+        'app.ticket_comments',
         'app.ticket_reports',
+        'app.tickets',
+        'app.departments',
         'app.ticket_types',
         'app.ticket_status',
-        'app.ticket_comments',
-        'app.tickets',
+        'app.tasks',
+        'app.task_status',
+        'app.task_priority',
         'app.task_types',
         'app.task_labels',
         'app.task_groups',
         'app.project_phases',
-        'app.phase_status',
         'app.versions',
-        'app.versions_status',
-        'app.events',
-        'app.project_statuses',
-        'app.discussion_statuses'
+        'app.creators',
+        'app.user_reports',
+        'app.project_types',
+        'app.user_group',
+        'app.task_comments',
+        'app.attachments',
+        'app.assigned_to',
+        'app.tasks_users',
+        'app.comments',
+        'app.discussion_status',
+        'app.reports',
+        'app.team',
+        'app.projects_users'
     ];
 
     /**

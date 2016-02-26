@@ -15,11 +15,9 @@ public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
 	
 		// Allow all users to logout and see dashboard
-		if (in_array ( $action, [
-				'index',
-		] ) && ! empty ( $user )) {
+		if (in_array ( $action, ['index'] ) && ! empty ( $user )) {
 			return true;
-		
+		}
 		
 		if (in_array ( $action, [
 				'view',
@@ -28,7 +26,7 @@ public function isAuthorized($user) {
 		] ) && $this->Tickets->exists(
 				['user_id' => $user['id'], 
 				 'id' => $this->request->params ['pass'] [0]
-				] )) {
+				] ) ) {
 			return true;
 		}
 	
@@ -42,7 +40,7 @@ public function isAuthorized($user) {
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Attachments', 'Departments', 'Types', 'Status', 'Users', 'Projects']
+            'contain' => ['Attachments', 'Departments', 'TicketTypes', 'TicketStatus', 'Users', 'Projects']
         ];
         $this->set('tickets', $this->paginate($this->Tickets));
         $this->set('_serialize', ['tickets']);
@@ -58,7 +56,7 @@ public function isAuthorized($user) {
     public function view($id = null)
     {
         $ticket = $this->Tickets->get($id, [
-            'contain' => ['Departments', 'Types', 'Status', 'Users', 'Projects', 'Tasks', 'Comments']
+            'contain' => ['Departments', 'Types', 'TicketStatus', 'Users', 'Projects', 'Tasks', 'Comments']
         ]);
         $this->set('ticket', $ticket);
         $this->set('_serialize', ['ticket']);
@@ -83,10 +81,10 @@ public function isAuthorized($user) {
         }
         $departments = $this->Tickets->Departments->find('list', ['limit' => 200]);
         $types = $this->Tickets->Types->find('list', ['limit' => 200]);
-        $status = $this->Tickets->Status->find('list', ['limit' => 200]);
+        $status = $this->Tickets->TicketStatus->find('list', ['limit' => 200]);
         $users = $this->Tickets->Users->find('list', ['limit' => 200]);
         $projects = $this->Tickets->Projects->find('list', ['limit' => 200]);
-        $this->set(compact('ticket', 'departments', 'types', 'status', 'users', 'projects'));
+        $this->set(compact('ticket', 'departments', 'types', 'TicketStatus', 'users', 'projects'));
         $this->set('_serialize', ['ticket']);
     }
 
@@ -113,10 +111,10 @@ public function isAuthorized($user) {
         }
         $departments = $this->Tickets->Departments->find('list', ['limit' => 200]);
         $types = $this->Tickets->Types->find('list', ['limit' => 200]);
-        $status = $this->Tickets->Status->find('list', ['limit' => 200]);
+        $status = $this->Tickets->TicketStatus->find('list', ['limit' => 200]);
         $users = $this->Tickets->Users->find('list', ['limit' => 200]);
         $projects = $this->Tickets->Projects->find('list', ['limit' => 200]);
-        $this->set(compact('ticket', 'departments', 'types', 'status', 'users', 'projects'));
+        $this->set(compact('ticket', 'departments', 'types', 'ticketstatus', 'users', 'projects'));
         $this->set('_serialize', ['ticket']);
     }
 

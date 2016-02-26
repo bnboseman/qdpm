@@ -1,104 +1,92 @@
-<div ng-controller="ProjectsCtrl">
-
-<h1>{{project.name}}</h1>
-<ul class="list-inline">
-	<li><strong>Status: </strong> {{project.status.name}}</li>
-	<li><strong>Type: </strong> {{project.type.name}}</li>
-	<li><a href="#">More Info</a> </li>
-	<li><a href="#">Edit Details</a></li>
-</ul>
+<div class="row content-panel">
+<h1 class="nospace">{{project.name}}</h1>
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    <ul class="list-inline">
+        <li><strong>Status: </strong> {{project.status.name}}</li>
+        <li><strong>Type: </strong> {{project.type.name}}</li>
+        <li><a href="#">More Info</a> </li>
+        <li><a href="#">Edit Details</a>
+        </li>
+    </ul>
     <div class="content-panel">
-		<nav class="navbar btn-info">
-		  <ul class="nav navbar-nav">
-		  <li><p class="navbar-text">Project Info</p></li>
-		  <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#" >Add Task</a></li>
-            <li><a href="#" ng-click="selectView({'page':'tasks'});$event.stopPropagation(); $event.preventDefault();">View All</a></li>
-            <li><a href="#">Add Task Group</a></li>
-            <li><a href="#">View Groups</a></li>
-          </ul>
-        </li>
+        <project-nav></project-nav>
+    <div class="col-md-8">
         
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tickets <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Add Tickets</a></li>
-            <li><a href="#">View All</a></li>
-          </ul>
-        </li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Discusions <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Add Discusion</a></li>
-            <li><a href="#">View All</a></li>
-          </ul>
-        </li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Versions <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Add Versions</a></li>
-            <li><a href="#">View All</a></li>
-          </ul>
-        </li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Phases <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Add Phases</a></li>
-            <li><a href="#">View All</a></li>
-          </ul>
-        </li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Time Report</a></li>
-            <li><a href="#">Gantt Chart</a></li>
-          </ul>
-        </li>
-		  </ul>
-		</nav>
+        <ul class="list-inline">
+            <li>Status: {{project.project_status.name}}</li>
+            <li>Type: {{project.project_type.name}}</li>
+            <li><a href="#">More Info</a>
+            </li>
+            <li><a href="#"> Edit Details</a>
+            </li>
+        </ul>
+        <div ng-bind-html="project.description | unsafe"></div>
+
+        <table ng-show="project.project_comments.length > 0" class="table table-responsive table-striped">
+            <tr>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Created At</th>
+            </tr>
+            <tr ng-repeat="comment in project.project_comments">
+                <td class="col-xs-1"><a href="#" ng-click="deleteProjectComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i>
+                </td>
+                <td class="comments col-xs-8">
+                    <div class="attachments" ng-show="comment.attachments.length > 0">
+                        Attachments:
+                        <ul class="fa-ul nospace">
+                            <li ng-repeat="file in comment.attachments">
+                                <a href="#">{{file.file}}</a> <a href="#"><i class="fa fa-search"></i> view</a> <a href="#"><i class="fa fa-download"></i> download</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
+                </td>
+                <td class="col-xs-3">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}
+                    <br /> {{comment.created | amDateFormat:'h:mm a'}}
+                    <br />
+                    <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
+
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="col-md-4 bg-info">
+        <h3 class="nospace">Details</h3>
+        <table class="table table-condensed">
+
+            <tr>
+                <th>ID</th>
+                <td>{{project.id}}</td>
+            </tr>
+            <tr ng-show="project.project_status">
+                <th>Status</th>
+                <td>{{project.project_.name}}</td>
+            </tr>
+
+            <tr ng-show="project.project_type">
+                <th>Type</th>
+                <td>{{project.project_type.name}}</td>
+            </tr>
+
+            <tr>
+                <th>Created By:</th>
+                <td>{{project.due_date | amDateFormat:'LL' }}</td>
+            </tr>
+
+            <tr>
+                <th>Created At</th>
+                <td>{{project.created | amDateFormat:'LL' }}</td>
+            </tr>
+        </table>
+
+        <h4 class="nospace">Assigned To</h3>
+			<user-list users="project.team"></user-list>
 		
-		<div ng-show="view.page=='tasks'">
-		<h2 class="h3">Tasks</h2>
-		<table class="table">
-		<tr>
-			<th></th>
-			<th>Group</th>
-			<th>Phase</th>
-			<th class="col-md-3">Name</th>
-			<th class="col-md-1">Status</th>  
-			<th class="col-md-1">Type</th>
-			<th class="col-md-2">Assigned To</th>
-			<th>Est. Time</th>
-			<th class="col-md-2">Due Date</th>
-		</tr>
-		
-		
-		<tr dir-paginate="task in project.tasks | itemsPerPage: 25 ">
-			<td><span ng-show="!task.task_priority.icon">{{task.task_priority.name}}</span><img ng-show="task.task_priority.icon.length > 0" ng-cloak src="/img/icons/p/{{task.task_priority.icon}}" alt="{{task.task_priority.name}}"></td>
-			<td>{{task.task_group.name}}</td>
-			<td>{{task.project_phase.name}}</td>
-			<td><a href="#" ng-click="selectView({'page':'task', 'id':task.id});$event.stopPropagation(); $event.preventDefault();">{{task.name}}</a></td>
-			<td>{{task.task_status.name}}</td>  
-			<td>{{task.task_type.name}}</td>
-			<td><ul class="list-unstyled">
-			<li ng-repeat="assigned in task.assigned_to">{{assigned.full_name}}</li>
-			</ul></td>
-			<td>{{task.estimated_time}}</td>
-			<td>{{task.due_date  | amDateFormat:'LL'}}</td>
-		</tr>
-		</table>
-		<dir-pagination-controls></dir-pagination-controls>
-		</div>
-		
-		
-		<div ng-show="view.page=='task'">
-			<task task="task"></task>
-		</div>
+		<h4>Created By</h4>
+        <ul class="fa-ul nospace">
+            <li><i class="fa fa-angle-double-right"></i> <a href="mailto:{{project.creator.email}}">{{project.creator.full_name}}</a></li>
+        </ul>
     </div>
 </div>
