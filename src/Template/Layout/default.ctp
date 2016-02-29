@@ -18,14 +18,14 @@
     <body ng-app="TaskManager">
     <base href="/">
     <?= $this->element('header'); ?>
-    
+
     <div class="container-fluid">
     <?php if ($this->request->session()->read('Auth.User.id') ) { ?>
     <div class="col-sm-2">
     		<?= $this->element('sidebar'); ?>
     </div>
-    
-     
+
+
      <div class="col-sm-10">
      <?php } else { ?>
      <div class="col-sm-12">
@@ -33,28 +33,30 @@
      	<?= $this->Flash->render() ?>
         <?= $this->fetch('content'); ?>
      </div>
-    
+
      </div>
-                        	
-                        
+
+
         <?= $this->element('footer'); ?>
 
-        <?= $this->Html->script('jquery-2.2.1.min.js'); ?>
-        <?= $this->Html->script('bootstrap.min.js'); ?>
-        
+        <?= $this->Html->script('bower_components/jquery/dist/jquery.min.js'); ?>
+        <?= $this->Html->script('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>
+
         <!--common script for all pages-->
         <?= $this->Html->script('common-scripts.js'); ?>
-        <?= $this->Html->script('moment.min.js'); ?>
+        <?= $this->Html->script('bower_components/moment/min/moment.min.js'); ?>
         <!-- Angular Scrips -->
-        <?= $this->Html->script('angular.min.js'); ?>
-        <?= $this->Html->script('angular-route.min.js'); ?>
-        <?= $this->Html->script('angular-moment.min.js'); ?>
-        <?= $this->Html->script('dirPagination.js'); ?>
-        <?= $this->Html->script('angular-animate.min.js'); ?>
-        <?= $this->Html->script('ui-bootstrap-tpls-1.1.2.min.js'); ?>
-        <?= $this->Html->script('tinymce.js'); ?>
+        <?= $this->Html->script('bower_components/angular/angular.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-route/angular-route.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-moment/angular-moment.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-utils-pagination/dirPagination.js'); ?>
+        <?= $this->Html->script('bower_components/angular-animate/angular-animate.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls-1.1.2.min.js'); ?>
+        <?= $this->Html->script('bower_components/tinymce-dist/tinymce.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-ui-tinymce/dist/tinymce.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>
         <?= $this->Html->script('controllers/controllers.js'); ?>
         <?= $this->Html->script('script.js'); ?>
-        
+
     </body>
 </html>

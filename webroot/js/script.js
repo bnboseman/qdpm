@@ -266,7 +266,24 @@ app.config(['$routeProvider', '$locationProvider',
                     $scope.ticket = data.ticket;
                 });
             } else if ($location.path() == '/projects/add') {
-            	console.log('hey');
+            	$scope.project = {
+                		project_status_id: null,
+                		project_type_id: null,
+                		user_id: null,
+                		name: null,
+                		description: null
+                };
+            	
+            	$http.get('/project_status.json').success(function(data) {
+            		$scope.statuses = data.projectStatus;
+            		$scope.project.project_status_id = data.defaultStatus[0]['id'].toString();
+            	});
+            	$http.get('/project_types.json').success(function(data) {
+            		$scope.types = data.projectTypes;
+            		$scope.project.project_type_id = $scope.types[0]['id'].toString();
+            	});
+            	
+            	
             } else if ($routeParams.project_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
                     $scope.project = data.project;

@@ -12,3 +12,5 @@ lessphp_*
 .sass-cache
 style.css.map
 *.log
+bower_components
+*.map
