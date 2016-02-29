@@ -3,40 +3,40 @@
 <ul class="nav nav-stacked">
     <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#projects-menu">Projects <i class="glyphicon glyphicon-chevron-right"></i></a>
         <ul class="nav nav-stacked collapse" id="projects-menu">
-            <li><a href="#" ng-click="tabclick($event)">Add Project</a>
+            <li><a href="/#/projects/add" ng-click="tabclick($event)">Add Project</a>
             </li>
-            <li><a href="#/projects">View All</a>
+            <li><a href="/#/projects">View All</a>
             </li>
         </ul>
     </li>
-    
+
     <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#task-menu">Tasks <i class="glyphicon glyphicon-chevron-right"></i></a>
         <ul class="nav nav-stacked collapse" id="task-menu">
-            <li><a href="#">Add Task</a>
+            <li><a href="/#/tasks/add">Add Task</a>
             </li>
-            <li><a href="#/tasks">View All</a>
+            <li><a href="/#/tasks">View All</a>
             </li>
         </ul>
     </li>
-    
+
     <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#tickets-menu">Tickets <i class="glyphicon glyphicon-chevron-right"></i></a>
         <ul class="nav nav-stacked collapse" id="tickets-menu">
-            <li><a href="#">Add Tickets</a>
+            <li><a href="/#/tickets/add">Add Tickets</a>
             </li>
-            <li><a href="#/tickets">View All</a>
+            <li><a href="/#/tickets">View All</a>
             </li>
         </ul>
     </li>
-    
+
     <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#discussions-menu">Discussions <i class="glyphicon glyphicon-chevron-right"></i></a>
         <ul class="nav nav-stacked collapse" id="discussions-menu">
-            <li><a href="#">Add Discussions</a>
+            <li><a href="/#/discussions/add">Add Discussions</a>
             </li>
-            <li><a href="#/discussions">View All</a>
+            <li><a href="/#/discussions">View All</a>
             </li>
         </ul>
     </li>
-    
+
     <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#reports-menu">Reports <i class="glyphicon glyphicon-chevron-right"></i></a>
         <ul class="nav nav-stacked collapse" id="reports-menu">
             <li><a href="#">Project Reports</a></li>
