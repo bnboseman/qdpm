@@ -16,12 +16,12 @@ class UsersController extends AppController
 		if (in_array ( $action, ['login'] ) ) {
 			return true;
 		}
-		
+
 		if (in_array ( $action, ['edit'] ) && $user['id'] == $this->request->params ['pass'] [0] ) {
 			return true;
 		}
-		
-		if (in_array ( $action, ['logout','index', 'reports'] ) && ! empty ( $user )) {
+
+		if (in_array ( $action, ['logout','index', 'reports', 'info'] ) && ! empty ( $user )) {
 			return true;
 		}
 
@@ -33,7 +33,7 @@ class UsersController extends AppController
         $this->paginate = [
             'contain' => ['UserGroups']
         ];
-        $this->set('users', $this->paginate($this->Users));
+        $this->set('users', $this->Users->find('all'));
         $this->set('_serialize', ['users']);
     }
 
@@ -94,7 +94,7 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login() 
+    public function login()
     {
     	if ($this->request->is ( 'post' )) {
     		$user = $this->Auth->identify ();
@@ -118,17 +118,23 @@ class UsersController extends AppController
     		}
     	}
     }
-    public function logout() 
+    public function logout()
     {
     	$this->Flash->success ( 'You are now logged out.' );
     	return $this->redirect ( $this->Auth->logout() );
     }
-    
-    /** 
+
+    /**
      * Page to get all users reports
      */
     public function reports() {
     	$user = $this->Users->get($this->Auth->user('id'), ['contain' => ['DiscussionReports', 'ProjectReports', 'UserReports', 'TicketReports']]);
+    	$this->set('user', $user);
+    	$this->set('_serialize', ['user']);
+    }
+
+    public function info() {
+    	$user = $this->Users->get($this->Auth->user('id'));
     	$this->set('user', $user);
     	$this->set('_serialize', ['user']);
     }

@@ -49,6 +49,10 @@ Router::scope('/', function ($routes) {
 					'reports' => [
 							'action' => 'reports',
 							'method' => 'GET'
+					],
+					'info' => [
+							'action' => 'info',
+							'method' => 'GET'
 					]
 			]
 	]);
