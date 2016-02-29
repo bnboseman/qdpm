@@ -1,0 +1,45 @@
+<form name="newProject">
+<uib-tabset active="active">
+    <uib-tab index="0" heading="General">
+       <div class=" p-a-2">
+         <div class="form-group row">
+             <label for="project_type" class="col-sm-1 form-control-label">Type</label>
+             <div class="col-sm-11">
+                 <select class="form-control" ng-model="project.project_type_id">
+                     <option ng-repeat="type in types" ng-selected="$first" value="{{type.id}}">{{type.name}}</option>
+                 </select>
+             </div>
+         </div>
+         
+         <div class="form-group row">
+             <label for="project_status" class="col-sm-1 form-control-label">Status</label>
+             <div class="col-sm-11">
+                 <select class="form-control" ng-model="project.project_status_id">
+                     <option ng-repeat="status in statuses" ng-selected="project.project_status_id == status.id" value="{{status.id}}">{{status.name}}</option>
+                 </select>
+             </div>
+         </div>
+         
+         <div class="form-group row">
+             <label for="name" class="col-sm-1 form-control-label">Name</label>
+             <div class="col-sm-11">
+                 <input ng-model="project.name" name="name" class="form-control">
+             </div>
+         </div>
+         
+         <div class="form-group row">
+             <label for="description" class="col-sm-1 form-control-label">Description</label>
+             <div class="col-sm-11">
+                 <textarea ng-model="project.description" name="description" class="form-control">
+             </div>
+         </div>
+       </div>
+        
+    </uib-tab>
+    <uib-tab index="1" heading="Team">
+    </uib-tab>
+    
+    <uib-tab index="2" heading="Attachments">
+    </uib-tab>
+</uib-tabset>
+</form>
