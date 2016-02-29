@@ -10,20 +10,20 @@ use App\Controller\AppController;
  */
 class ProjectTypesController extends AppController
 {
-	
+
 	public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
-	
+
 		// Allow all users to see index
 		if ( in_array ( $action, ['index', 'view'] )  && !empty ( $user )) {
 			return true;
 		}
-	
+
 		if ( in_array ( $action, ['delete'] )  && !empty ( $user )) {
 			return true;
 		}
-	
-	
+
+
 		return parent::isAuthorized ( $user );
 	}
 
@@ -34,11 +34,12 @@ class ProjectTypesController extends AppController
      */
     public function index()
     {
-        $projectTypes = $this->ProjectTypes->find('list')->where(['active' => true])->order('sort_order');
+        $projectTypes = $this->ProjectTypes->find('all', ['fields' => ['id', 'name']])->where(['active' => true])->order('sort_order');
 
         $this->set(compact('projectTypes'));
         $this->set('_serialize', ['projectTypes']);
     }
+
 
     /**
      * Add method

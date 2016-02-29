@@ -10,20 +10,20 @@ use App\Controller\AppController;
  */
 class ProjectStatusController extends AppController
 {
-	
+
 	public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
-	
+
 		// Allow all users to see index
 		if ( in_array ( $action, ['index', 'view'] )  && !empty ( $user )) {
 			return true;
 		}
-	
+
 		if ( in_array ( $action, ['delete'] )  && !empty ( $user )) {
 			return true;
 		}
-	
-	
+
+
 		return parent::isAuthorized ( $user );
 	}
 
@@ -34,10 +34,10 @@ class ProjectStatusController extends AppController
      */
     public function index()
     {
-        $projectStatus = $this->ProjectStatus->find('list')->where(['active' => true])->order('sort_order');
-
-        $this->set(compact('projectStatus'));
-        $this->set('_serialize', ['projectStatus']);
+        $projectStatus = $this->ProjectStatus->find('all',  ['fields' => ['id', 'name']])->where(['active' => true])->order('sort_order');
+        $defaultStatus = $this->ProjectStatus->find('all', ['conditions' => ['default_value' => true], 'fields' => ['id', 'name']]);
+        $this->set(compact('projectStatus', 'defaultStatus'));
+        $this->set('_serialize', ['projectStatus', 'defaultStatus']);
     }
 
     /**
