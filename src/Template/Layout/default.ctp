@@ -51,7 +51,7 @@
         <?= $this->Html->script('bower_components/angular-moment/angular-moment.min.js'); ?>
         <?= $this->Html->script('bower_components/angular-utils-pagination/dirPagination.js'); ?>
         <?= $this->Html->script('bower_components/angular-animate/angular-animate.min.js'); ?>
-        <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls-1.1.2.min.js'); ?>
+        <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>
         <?= $this->Html->script('bower_components/tinymce-dist/tinymce.min.js'); ?>
         <?= $this->Html->script('bower_components/angular-ui-tinymce/dist/tinymce.min.js'); ?>
         <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>
