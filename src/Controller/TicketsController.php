@@ -38,10 +38,14 @@ public function isAuthorized($user) {
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Attachments', 'Departments', 'TicketTypes', 'TicketStatus', 'Users', 'Projects']
-        ];
-        $this->set('tickets', $this->Tickets->find('all'));
+        $this->set('tickets', $this->Tickets->find('all', ['contain' => [
+        		'Attachments', 
+        		'Departments', 
+        		'TicketTypes', 
+        		'TicketStatus', 
+        		'Users',
+        		'Projects']
+        ]));
         $this->set('_serialize', ['tickets']);
     }
 

@@ -65,7 +65,8 @@ class TicketsTable extends Table
         ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'ticket_id',
-        	'className' => 'TicketComments'
+        	'className' => 'TicketComments',
+        	'sort' => ['Comments.created' => 'Desc']
         ]);
     }
 

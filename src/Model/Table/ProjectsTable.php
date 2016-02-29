@@ -67,7 +67,8 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('ProjectComments', [
             'foreignKey' => 'project_id',
-        	'className' => 'ProjectComments'
+        	'className' => 'ProjectComments',
+        	'sort' => ['ProjectComments.created' => 'Desc']
         ]);
         $this->hasOne('ProjectPhases', [
             'foreignKey' => 'project_id',
@@ -80,13 +81,15 @@ class ProjectsTable extends Table
             'foreignKey' => 'project_id'
         ]);
         $this->hasMany('Tasks', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+        	'sort' => ['Tasks.created' => 'Desc']
         ]);
         $this->hasMany('TicketReports', [
             'foreignKey' => 'project_id'
         ]);
         $this->hasMany('Tickets', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+        	'sort' => ['Tickets.created' => 'Desc']
         ]);
         $this->hasMany('UserReports', [
             'foreignKey' => 'project_id'

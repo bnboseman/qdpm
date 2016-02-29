@@ -35,6 +35,8 @@ Router::scope('/', function ($routes) {
 							'method' => 'POST'
 					]
 			]]);
+	$routes->resources('ProjectTypes');
+	$routes->resources('ProjectStatus');
 	$routes->resources('Tasks', function( $routes) {
 		$routes->resources('TaskComments');
 	});

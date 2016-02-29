@@ -1,5 +1,5 @@
 <div class="row content-panel" ng-if="ticket.name.length > 0">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <h2 class="h2 nospace">{{ticket.name}}</h2>
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
         <ul class="list-inline">
@@ -29,10 +29,11 @@
 
     </div>
 
-    <div class="col-md-3">
-        <div class="bg-info">
-            <div class="related-tasks" ng-show="ticket.tasks.length > 0">
-                <h3>Related Tasks</h3>
+    <div class="col-md-4">
+        <div class="panel panel-info">
+        <div class="panel-heading" ng-show="ticket.tasks.length > 0">
+        <h3>Related Tasks</h3></div>
+         <div class="panel-body"  ng-show="ticket.tasks.length > 0">
                 <table class="table table-responsive">
                     <tr ng-repeat="task in ticket.tasks">
                         <td><a href="#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a> [{{task.task_status.name}}]</td>
@@ -41,8 +42,8 @@
         </table>
         </div>
         
-        <h3 class="nospace">Details</h3>
-        <table class="table table-repsonsive">
+        <div class="panel-heading"><h3 class="nospace">Details</h3></div>
+        <div class="panel-body"><table class="table table-repsonsive">
             <tr>
                 <th>ID</th>
                 <td>{{ticket.id}}</td>
@@ -62,5 +63,5 @@
                 <th>Created at</th>
                 <td>{{ticket.created | amDateFormat:'LL'}}</td>
             </tr>
-        </table>
+        </table></div>
 </div>

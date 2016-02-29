@@ -80,6 +80,34 @@ app.factory("Ticket", function TicketFactory($http) {
     }
 })
 
+app.factory("OrderService", ['$filter', function($filter) {
+	var predicate = null;
+    var reverse = false;
+    var  orderBy =  $filter('orderBy');
+  return {
+    order: function(items, predicate, item) {
+    		if($scope.predicate === predicate) {
+    			$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+    			
+    		}
+    		$scope.predicate = predicate;
+    		if ( $scope.reverse == true ) {
+    			if(item) {
+    				return  orderBy(items[item] , "-" + $scope.predicate);
+    			} else {
+    				return orderBy(items, "-" + $scope.predicate);
+    			}
+    		} else {
+    			if(item) {
+    				return orderBy(items[item], $scope.predicate, $scope.reverse);
+    			} else {
+    				return orderBy($scope.items, $scope.predicate, $scope.reverse);
+    			}
+    		}
+    }
+  };
+}]);
+
 app.directive('task', function() {
     return {
         restrict: 'E',
@@ -168,11 +196,15 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: '/partials/projects/index.html',
                 controller: 'ProjectsCtrl'
             }).
+            when('/projects/add', {
+            	templateUrl: '/partials/projects/add.html',
+            	controller: 'ProjectsCtrl'
+            }).
             when('/projects/:project_id/tasks', {
                 templateUrl: '/partials/projects/tasks.html',
                 controller: 'ProjectsCtrl'
             }).
-            when('/projects/:project_id', {
+            when('/projects/view/:project_id', {
                 templateUrl: '/partials/projects/view.html',
                 controller: 'ProjectsCtrl'
             }).
@@ -209,13 +241,14 @@ app.config(['$routeProvider', '$locationProvider',
             });
 
         }
-    ]).controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', 'Project', 'Task','Ticket', 
-        function($scope, $http, $routeParams, Project, Task, Ticket) {
+    ]).controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', '$location',  'Project', 'Task','Ticket', 
+        function($scope, $http, $routeParams, $location, Project, Task, Ticket) {
             $scope.alerts = [];
             $scope.project = null;
             $scope.projects = null;
             $scope.task = null;
             $scope.ticket = null;
+            
 
             if ($routeParams.project_id !== undefined && $routeParams.task_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
@@ -232,6 +265,8 @@ app.config(['$routeProvider', '$locationProvider',
                 Ticket.read($routeParams.ticket_id).success(function(data) {
                     $scope.ticket = data.ticket;
                 });
+            } else if ($location.path() == '/projects/add') {
+            	console.log('hey');
             } else if ($routeParams.project_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
                     $scope.project = data.project;
@@ -290,7 +325,7 @@ app.config(['$routeProvider', '$locationProvider',
             $scope.tasks = {};
             $scope.view = null;
             $scope.alerts = [];
-
+            
             if ($routeParams.id !== undefined) {
                 Task.read($routeParams.id).success(function(data) {
                     $scope.task = data.task;
@@ -331,7 +366,7 @@ app.config(['$routeProvider', '$locationProvider',
             $scope.tickets = null;
             $scope.view = null;
             $scope.alerts = [];
-
+        	
             if ($routeParams.ticket_id !== undefined) {
                 Ticket.read($routeParams.ticket_id).success(function(data) {
                     $scope.ticket = data.ticket;
