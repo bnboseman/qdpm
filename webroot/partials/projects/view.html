@@ -57,7 +57,7 @@
                 </tr>
                 <tr ng-show="project.project_status">
                     <th>Status</th>
-                    <td>{{project.project_.name}}</td>
+                    <td>{{project.project_status.name}}</td>
                 </tr>
 
                 <tr ng-show="project.project_type">
@@ -67,7 +67,7 @@
 
                 <tr>
                     <th>Created By:</th>
-                    <td>{{project.due_date | amDateFormat:'LL' }}</td>
+                    <td>{{project.creator.full_name }}</td>
                 </tr>
 
                 <tr>
