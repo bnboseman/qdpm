@@ -30,7 +30,13 @@
          <div class="form-group row">
              <label for="description" class="col-sm-1 form-control-label">Description</label>
              <div class="col-sm-11">
-                 <textarea ng-model="project.description" name="description" class="form-control">
+                 <textarea ui-tinymce="tinymceOptions" ng-model="project.description" name="description" class="form-control"></textarea>
+             </div>
+         </div>
+         
+         <div class="form-group row">
+             <div class="col-sm-3">
+                 <a href="#" ng-click="save(project); $event.stopPropagation(); $event.preventDefault();" class="btn btn-primary">Save Project</a>
              </div>
          </div>
        </div>

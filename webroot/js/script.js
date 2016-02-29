@@ -1,4 +1,4 @@
-var app = angular.module('TaskManager', ['ngRoute', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.bootstrap']);
+var app = angular.module('TaskManager', ['ngRoute', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.bootstrap', 'ui.tinymce']);
 
 app.factory("Project", function ProjectFactory($http) {
     return {
@@ -20,6 +20,13 @@ app.factory("Project", function ProjectFactory($http) {
                 method: "DELETE",
                 url: '/projects/' + id + '.json',
                 data: id
+            });
+        },
+        save: function(project) {
+        	return $http({
+                method: "POST",
+                url: '/projects.json',
+                data: project
             });
         },
         removeComment: function(project_id, comment_id) {
@@ -249,6 +256,9 @@ app.config(['$routeProvider', '$locationProvider',
             $scope.task = null;
             $scope.ticket = null;
             
+            $scope.save = function(project) {
+            	
+            }
 
             if ($routeParams.project_id !== undefined && $routeParams.task_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
@@ -266,6 +276,23 @@ app.config(['$routeProvider', '$locationProvider',
                     $scope.ticket = data.ticket;
                 });
             } else if ($location.path() == '/projects/add') {
+            	// Set up tinymce options for description
+            	$scope.tinymceOptions = {
+            			inline: false,
+        			    plugins : [
+			               'advlist autolink lists link image charmap preview hr anchor pagebreak',
+			               'searchreplace visualblocks visualchars code fullscreen',
+			               'insertdatetime media nonbreaking save table contextmenu directionality',
+			               'emoticons paste textcolor colorpicker textpattern imagetools',
+        			   ],
+        			   menubar: false,
+        			   extended_valid_elements: 'span[class]',
+        			   toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | forecolor backcolor | link image media',
+        			    skin: 'lightgray',
+        			    theme : 'modern'	
+            	};
+            	
+            	// Add blank project to hold data
             	$scope.project = {
                 		project_status_id: null,
                 		project_type_id: null,
@@ -274,6 +301,7 @@ app.config(['$routeProvider', '$locationProvider',
                 		description: null
                 };
             	
+            	// Get the project statuses and types to display
             	$http.get('/project_status.json').success(function(data) {
             		$scope.statuses = data.projectStatus;
             		$scope.project.project_status_id = data.defaultStatus[0]['id'].toString();
@@ -281,6 +309,11 @@ app.config(['$routeProvider', '$locationProvider',
             	$http.get('/project_types.json').success(function(data) {
             		$scope.types = data.projectTypes;
             		$scope.project.project_type_id = $scope.types[0]['id'].toString();
+            	});
+            	
+            	// Get information about the current logged in user
+            	$http.get('/users/info.json').success(function(data) {
+            		$scope.project.user_id = data.user.id.toString();
             	});
             	
             	
