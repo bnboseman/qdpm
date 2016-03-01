@@ -8,11 +8,11 @@ app.factory("Project", function ProjectFactory($http) {
         read: function(id) {
             return $http.get('/projects/' + id + '.json');
         },
-        create: function() {
+        create: function(project) {
             return $http({
                 method: "POST",
                 url: "/projects.json",
-                data: project
+                data: JSON.stringify(project)
             });
         },
         remove: function(id) {
@@ -20,13 +20,6 @@ app.factory("Project", function ProjectFactory($http) {
                 method: "DELETE",
                 url: '/projects/' + id + '.json',
                 data: id
-            });
-        },
-        save: function(project) {
-        	return $http({
-                method: "POST",
-                url: '/projects.json',
-                data: project
             });
         },
         removeComment: function(project_id, comment_id) {
@@ -273,7 +266,7 @@ app.config(['$routeProvider', '$locationProvider',
                 });
             } else if ($location.path() == '/projects/add') {
             	$scope.save = function() {
-                	Project.save($scope.project).success(function(data) {
+                	Project.create($scope.project).success(function(data) {
                 		console.log(data)
                 	})
                 }

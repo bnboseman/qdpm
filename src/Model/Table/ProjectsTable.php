@@ -141,7 +141,7 @@ class ProjectsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['project_status_id'], 'ProjectStatuses'));
+        $rules->add($rules->existsIn(['project_status_id'], 'ProjectStatus'));
         $rules->add($rules->existsIn(['project_types_id'], 'ProjectTypes'));
         return $rules;
     }

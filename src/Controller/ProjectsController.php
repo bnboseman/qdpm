@@ -15,12 +15,13 @@ class ProjectsController extends AppController
 	public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
 
+
 		// Allow all users to see index
 		if ( in_array ( $action, ['index','view' ])  && !empty ( $user )) {
 			return true;
 		}
 
-		if ( in_array ( $action, ['save', 'delete'] )  &&  ( $user['user_group']['allow_manage_projects'] )) {
+		if ( in_array ( $action, ['add', 'delete'] )  &&  ( $user['user_group']['allow_manage_projects'] == 1 || $user['user_group']['allow_manage_projects'] = 4 )) {
 			return true;
 		}
 
@@ -35,6 +36,8 @@ class ProjectsController extends AppController
      */
     public function index()
     {
+    	$nichole = $this->Projects->Creator->get(121);
+    	var_dump($nichole->isAuthorized('tickets', 'view'));
         $this->set('projects', $this->Projects->find('all', ['contain' =>['ProjectStatus','ProjectTypes','Creator', 'Team']]));
         $this->set('_serialize', ['projects']);
     }
@@ -82,7 +85,7 @@ class ProjectsController extends AppController
      */
     public function add()
     {
-        $this->Projects->newEntity();
+        $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
             if ($this->Projects->save($project)) {
@@ -96,8 +99,8 @@ class ProjectsController extends AppController
                 $this->Flash->error(__('The project could not be saved. Please, try again.'));
             }
         }
-        $projectStatus = $this->Projects->Status->find('list', ['limit' => 200]);
-        $projectTypes = $this->Projects->Types->find('list', ['limit' => 200]);
+        $projectStatus = $this->Projects->ProjectStatus->find('list', ['limit' => 200]);
+        $projectTypes = $this->Projects->ProjectTypes->find('list', ['limit' => 200]);
         $this->set(compact('project', 'projectStatus', 'projectTypes'));
         $this->set('_serialize', ['project']);
     }

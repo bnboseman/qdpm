@@ -12,6 +12,13 @@ class UserGroupsTableTest extends TestCase
 {
 
     /**
+     * Test subject
+     *
+     * @var \App\Model\Table\UserGroupsTable
+     */
+    public $UserGroups;
+
+    /**
      * Fixtures
      *
      * @var array
@@ -19,36 +26,45 @@ class UserGroupsTableTest extends TestCase
     public $fixtures = [
         'app.user_groups',
         'app.users',
-        'app.departments',
+        'app.department',
+        'app.supervisors',
+        'app.roles',
         'app.discussion_comments',
+        'app.discussion_reports',
         'app.discussions',
         'app.projects',
-        'app.project_statuses',
-        'app.discussion_reports',
-        'app.project_types',
+        'app.project_status',
+        'app.creator',
+        'app.events',
+        'app.project_comments',
         'app.project_reports',
-        'app.ticket_reports',
-        'app.ticket_types',
-        'app.tickets',
-        'app.ticket_statuses',
         'app.ticket_comments',
+        'app.tickets',
+        'app.departments',
+        'app.ticket_types',
+        'app.ticket_status',
         'app.tasks',
         'app.task_status',
-        'app.task_comments',
         'app.task_priority',
-        'app.user_reports',
-        'app.project_status',
         'app.task_types',
         'app.task_labels',
         'app.task_groups',
         'app.project_phases',
-        'app.phase_status',
         'app.versions',
-        'app.versions_status',
-        'app.discussion_statuses',
-        'app.project_comments',
-        'app.discussion_status',
-        'app.events'
+        'app.creators',
+        'app.ticket_reports',
+        'app.user_reports',
+        'app.project_types',
+        'app.user_group',
+        'app.task_comments',
+        'app.attachments',
+        'app.assigned_to',
+        'app.tasks_users',
+        'app.comments',
+        'app.reports',
+        'app.team',
+        'app.projects_users',
+        'app.discussion_status'
     ];
 
     /**

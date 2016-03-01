@@ -49,6 +49,10 @@ class DiscussionsTable extends Table
         $this->hasMany('Tasks', [
             'foreignKey' => 'discussion_id'
         ]);
+        $this->belongsToMany('AssignedTo', [
+        		'className' => 'Users',
+        		'targetForeignKey' => 'user_id'
+        ]);
     }
 
     /**

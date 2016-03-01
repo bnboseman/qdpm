@@ -84,7 +84,7 @@ class TasksTable extends Table
         		'foreignKey' => 'bind_id',
         		'conditions' => ['Attachments.bind_type' => 'tasks']
         ]);
-        
+
         $this->belongsToMany('AssignedTo', [
         	'className' => 'Users',
         	'targetForeignKey' => 'user_id'

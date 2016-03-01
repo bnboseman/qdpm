@@ -59,6 +59,7 @@ Router::scope('/', function ($routes) {
 
 
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+    $routes->connect('/projects/add', ['controller' => 'Projects', 'action' => 'add']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);

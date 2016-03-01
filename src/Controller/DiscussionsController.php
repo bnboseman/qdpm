@@ -10,6 +10,22 @@ use App\Controller\AppController;
  */
 class DiscussionsController extends AppController
 {
+	public function isAuthorized($user) {
+		$action = $this->request->params ['action'];
+
+
+		// Allow all users to see index
+		if ( in_array ( $action, ['index','view' ])  && !empty ( $user )) {
+			return true;
+		}
+
+		if ( in_array ( $action, ['add', 'delete'] )  &&  ( $user['user_group']['allow_manage_discussions'] == 1 || $user['user_group']['allow_manage_discussions'] = 4 )) {
+			return true;
+		}
+
+
+		return parent::isAuthorized ( $user );
+	}
 
     /**
      * Index method
