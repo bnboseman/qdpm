@@ -16,11 +16,11 @@ class ProjectsController extends AppController
 		$action = $this->request->params ['action'];
 
 		// Allow all users to see index
-		if ( in_array ( $action, ['index'] )  && !empty ( $user )) {
+		if ( in_array ( $action, ['index','view' ])  && !empty ( $user )) {
 			return true;
 		}
 
-		if ( in_array ( $action, ['view', 'delete'] )  && !empty ( $user )) {
+		if ( in_array ( $action, ['save', 'delete'] )  &&  ( $user['user_group']['allow_manage_projects'] )) {
 			return true;
 		}
 
@@ -82,12 +82,16 @@ class ProjectsController extends AppController
      */
     public function add()
     {
-        $project = $this->Projects->newEntity();
+        $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return new Response([
+                	'type' => 'application/json',
+                	'body' => json_encode ( array_merge(['success' => 'The project has been successfully saved'], $project)),
+                	'charset' => 'UTF-8'
+                ]);
             } else {
                 $this->Flash->error(__('The project could not be saved. Please, try again.'));
             }

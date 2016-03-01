@@ -255,10 +255,6 @@ app.config(['$routeProvider', '$locationProvider',
             $scope.projects = null;
             $scope.task = null;
             $scope.ticket = null;
-            
-            $scope.save = function(project) {
-            	
-            }
 
             if ($routeParams.project_id !== undefined && $routeParams.task_id !== undefined) {
                 Project.read($routeParams.project_id).success(function(data) {
@@ -276,6 +272,12 @@ app.config(['$routeProvider', '$locationProvider',
                     $scope.ticket = data.ticket;
                 });
             } else if ($location.path() == '/projects/add') {
+            	$scope.save = function() {
+                	Project.save($scope.project).success(function(data) {
+                		console.log(data)
+                	})
+                }
+            	
             	// Set up tinymce options for description
             	$scope.tinymceOptions = {
             			inline: false,
