@@ -46,43 +46,52 @@
 
 
         <div class="col-md-4">
-        <div class="panel panel-info">
-            <div class="panel-heading"><h3 class="nospace">Details</h3></div>
-            
-           <div class="panel-body"> <table class="table table-condensed">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="nospace">Details</h3></div>
 
-                <tr>
-                    <th>ID</th>
-                    <td>{{project.id}}</td>
-                </tr>
-                <tr ng-show="project.project_status">
-                    <th>Status</th>
-                    <td>{{project.project_status.name}}</td>
-                </tr>
+                <div class="panel-body">
+                    <table class="table table-condensed">
 
-                <tr ng-show="project.project_type">
-                    <th>Type</th>
-                    <td>{{project.project_type.name}}</td>
-                </tr>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{project.id}}</td>
+                        </tr>
+                        <tr ng-show="project.project_status">
+                            <th>Status</th>
+                            <td>{{project.project_status.name}}</td>
+                        </tr>
 
-                <tr>
-                    <th>Created By:</th>
-                    <td>{{project.creator.full_name }}</td>
-                </tr>
+                        <tr ng-show="project.project_type">
+                            <th>Type</th>
+                            <td>{{project.project_type.name}}</td>
+                        </tr>
 
-                <tr>
-                    <th>Created At</th>
-                    <td>{{project.created | amDateFormat:'LL' }}</td>
-                </tr>
-            </table></div>
+                        <tr>
+                            <th>Created By:</th>
+                            <td>{{project.creator.full_name }}</td>
+                        </tr>
 
-            <div class="panel-heading"><h3 class="nospace">Assigned To</h3></div>
-			<div class="panel-body"><user-list users="project.team"></user-list></div>
-		
-		<div class="panel-heading"><h4>Created By</h4></div>
-            <div class="panel-body"><ul class="fa-ul nospace">
-                <li><i class="fa fa-angle-double-right"></i> <a href="mailto:{{project.creator.email}}">{{project.creator.full_name}}</a></li>
-            </ul></div>
-        </div>
+                        <tr>
+                            <th>Created At</th>
+                            <td>{{project.created | amDateFormat:'LL' }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="panel-heading">
+                    <h3 class="nospace">Assigned To</h3></div>
+                <div class="panel-body">
+                    <user-list users="project.team"></user-list>
+                </div>
+
+                <div class="panel-heading">
+                    <h4>Created By</h4></div>
+                <div class="panel-body">
+                    <ul class="fa-ul nospace">
+                        <li><i class="fa fa-angle-double-right"></i> <a href="mailto:{{project.creator.email}}">{{project.creator.full_name}}</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>

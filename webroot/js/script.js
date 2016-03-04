@@ -1,4 +1,4 @@
-var app = angular.module('TaskManager', ['ngRoute', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.bootstrap', 'ui.tinymce']);
+ var app = angular.module('TaskManager', ['ngRoute', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.bootstrap', 'ui.tinymce']);
 
 app.factory("Project", function ProjectFactory($http) {
     return {
@@ -27,6 +27,34 @@ app.factory("Project", function ProjectFactory($http) {
                 method: "DELETE",
                 url: '/projects/' + project_id + '/project_comments/' + comment_id + '.json',
                 data: comment_id
+            });
+        }
+    }
+});
+
+app.factory("User", function UserFactory($http) {
+    return {
+        groups: function() {
+            return $http.get('/user_groups.json');
+        },
+        all: function() {
+            return $http.get('/users.json');
+        },
+        read: function(id) {
+            return $http.get('/users/' + id + '.json');
+        },
+        create: function(user) {
+            return $http({
+                method: "POST",
+                url: "/users.json",
+                data: JSON.stringify(user)
+            });
+        },
+        remove: function(id) {
+            return $http({
+                method: "DELETE",
+                url: '/users/' + id + '.json',
+                data: id
             });
         }
     }
@@ -173,6 +201,17 @@ app.directive('userList', function() {
     };
 });
 
+app.directive('selectUser', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/partials/users/groups.html',
+        scope: {
+        	type: '=type',
+            groups: '=groups'
+        },
+    };
+});
+
 app.directive('attachmentsList', function() {
     return {
         restrict: 'E',
@@ -241,8 +280,8 @@ app.config(['$routeProvider', '$locationProvider',
             });
 
         }
-    ]).controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', '$location',  'Project', 'Task','Ticket', 
-        function($scope, $http, $routeParams, $location, Project, Task, Ticket) {
+    ]).controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', '$location',  'Project', 'Task','Ticket', 'User',
+        function($scope, $http, $routeParams, $location, Project, Task, Ticket, User) {
             $scope.alerts = [];
             $scope.project = null;
             $scope.projects = null;
@@ -270,6 +309,15 @@ app.config(['$routeProvider', '$locationProvider',
                 		console.log(data)
                 	})
                 }
+            	
+            	User.groups().success(function(data) {
+            		console.log(data);
+            		$scope.groups = data.userGroups;
+            	}).error(function(error)  {
+            		console.log(error);
+            	});
+            	
+            	
             	
             	// Set up tinymce options for description
             	$scope.tinymceOptions = {
@@ -319,6 +367,7 @@ app.config(['$routeProvider', '$locationProvider',
             } else {
                 Project.all().success(function(data) {
                     $scope.projects = data.projects;
+                    console.log(data.projects);
                 });
             }
 

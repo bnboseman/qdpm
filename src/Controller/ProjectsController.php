@@ -37,7 +37,6 @@ class ProjectsController extends AppController
     public function index()
     {
     	$nichole = $this->Projects->Creator->get(121);
-    	var_dump($nichole->isAuthorized('tickets', 'view'));
         $this->set('projects', $this->Projects->find('all', ['contain' =>['ProjectStatus','ProjectTypes','Creator', 'Team']]));
         $this->set('_serialize', ['projects']);
     }

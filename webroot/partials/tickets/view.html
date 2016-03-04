@@ -31,9 +31,9 @@
 
     <div class="col-md-4">
         <div class="panel panel-info">
-        <div class="panel-heading" ng-show="ticket.tasks.length > 0">
-        <h2 class="h4 nospace">Related Tasks</h2></div>
-         <div class="panel-body"  ng-show="ticket.tasks.length > 0">
+            <div class="panel-heading" ng-show="ticket.tasks.length > 0">
+                <h2 class="h4 nospace">Related Tasks</h2></div>
+            <div class="panel-body" ng-show="ticket.tasks.length > 0">
                 <table class="table table-responsive">
                     <tr ng-repeat="task in ticket.tasks">
                         <td><a href="#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a> [{{task.task_status.name}}]</td>

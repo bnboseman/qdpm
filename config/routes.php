@@ -44,6 +44,7 @@ Router::scope('/', function ($routes) {
 		$routes->resources('Comments', ['controller' => 'ticket_comments']);
 	});
 	$routes->resources('UserReports');
+	$routes->resources('UserGroups');
 	$routes->resources('Users', [
 			'map' => [
 					'reports' => [

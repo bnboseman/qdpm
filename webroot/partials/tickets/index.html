@@ -10,7 +10,7 @@
             <th class="col-xs-2">Type</th>
             <th class="col-xs-1">Department</th>
 
-            <th class="col-xs-3"  ng-show="{{!project}}">Project</th>
+            <th class="col-xs-3" ng-show="{{!project}}">Project</th>
             <th class="col-xs-2">Created</th>
         </tr>
 
@@ -21,7 +21,7 @@
             <td><a href="#/projects/{{ticket.project_id}}/tickets/{{ticket.id}}">{{ticket.name}}</a></td>
             <td>{{ticket.ticket_type.name}}</td>
             <td>{{ticket.department.name}}</td>
-            <td  ng-show="{{!project}}">{{ticket.project.name}}</td>
+            <td ng-show="{{!project}}"><a href="/#/projects/{{ticket.project_id}}/tickets/">{{ticket.project.name}}</a></td>
             <td>{{ticket.created | amDateFormat:'LL'}}</td>
         </tr>
     </table>

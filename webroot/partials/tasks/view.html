@@ -39,10 +39,10 @@
 
 
     <div class="col-md-4">
-    <div class="panel panel-info">
-    	<div class="panel-heading" ng-show="task.ticket">
-        <h2 class="h4 nospace">Related Tasks</h2></div>
-         <div class="panel-body"  ng-show="task.ticket">
+        <div class="panel panel-info">
+            <div class="panel-heading" ng-show="task.ticket">
+                <h2 class="h4 nospace">Related Tasks</h2></div>
+            <div class="panel-body" ng-show="task.ticket">
                 <table class="table table-responsive">
                     <tr>
                         <td><a href="#/projects/{{task.project_id}}/tickets/{{task.ticket.id}}">{{task.ticket.name}}</a> [{{task.ticket.ticket_status.name}}]</td>
@@ -115,10 +115,10 @@
 		<div class="panel-body">
         <ul class="list-unstyled">
             <li><a href="mailto:{{task.creator.email}}">{{task.creator.full_name}}</a>
-            </li>
-        </ul>
-        </div>
+                            </li>
+                            </ul>
+            </div>
         </div>
     </div>
-    </div>
+</div>
 </div>
