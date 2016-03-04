@@ -87,15 +87,20 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
-            if ($this->Projects->save($project)) {
+            $result = $this->Projects->save($project);
+            if ($result) {
                 $this->Flash->success(__('The project has been saved.'));
                 return new Response([
                 	'type' => 'application/json',
-                	'body' => json_encode ( array_merge(['success' => 'The project has been successfully saved'], $project)),
+                	'body' => json_encode ( array_merge(['success' => 'The project has been successfully saved'], ['project' => $result->toArray()])),
                 	'charset' => 'UTF-8'
                 ]);
             } else {
-                $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            	return new Response([
+            			'type' => 'application/json',
+            			'body' => json_encode (['error' => 'The project could not be saved. Please, try again.']),
+            			'charset' => 'UTF-8'
+            	]);
             }
         }
         $projectStatus = $this->Projects->ProjectStatus->find('list', ['limit' => 200]);

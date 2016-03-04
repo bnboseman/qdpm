@@ -21,7 +21,7 @@ class AngularHelper extends Helper
     public function includeFilesFromDirectory( $directory, $type=null ) {
     	$files = scandir(WWW_ROOT . 'js' . DS . $directory);
         foreach($files as $file) {
-        	if (strlen($file) > 3) {
+        	if (strlen($file) > 3 && strtolower(substr($file, -3)) == '.js') {
         		echo $this->Html->script($directory . DS . $file);
         	}
         }

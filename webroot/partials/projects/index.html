@@ -3,7 +3,7 @@
     <div class="content-panel">
         <h1>Projects</h1>
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-        <table class="table table-responsive" ng-show="projects.length > 0">
+        <table class="table table-responsive table-hover" ng-show="projects.length > 0">
             <tr>
                 <th>Action</th>
                 <th>ID</th>

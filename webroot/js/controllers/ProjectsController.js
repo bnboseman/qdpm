@@ -25,13 +25,12 @@ app.controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', '$location', 
             });
         } else if ($location.path() == '/projects/add') {
             $scope.save = function() {
-                Project.create($scope.project).success(function(data) {
-                    console.log(data)
-                })
+                Project.create($scope.project).success( function(data) {
+                	window.location.replace = '/#/projects/view/' + data.project.id;
+                });
             }
 
             User.groups().success(function(data) {
-                console.log(data);
                 $scope.groups = data.userGroups;
             }).error(function(error) {
                 console.log(error);
@@ -87,7 +86,6 @@ app.controller('ProjectsCtrl', ['$scope', '$http', '$routeParams', '$location', 
         } else {
             Project.all().success(function(data) {
                 $scope.projects = data.projects;
-                console.log(data.projects);
             });
         }
 
