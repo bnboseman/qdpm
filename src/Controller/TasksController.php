@@ -63,6 +63,7 @@ class TasksController extends AppController
         				'TaskComments.TaskStatus',
         				'TaskComments.TaskPriority',
         				'Tickets',
+        				'Tickets.TicketStatus',
         				'Versions',
         				'Creators',
         				'AssignedTo']

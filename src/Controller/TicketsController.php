@@ -15,7 +15,7 @@ public function isAuthorized($user) {
 		$action = $this->request->params ['action'];
 
 		// Allow all users to logout and see dashboard
-		if (in_array ( $action, ['index'] ) && ! empty ( $user )) {
+		if (in_array ( $action, ['index', 'options'] ) && ! empty ( $user )) {
 			return true;
 		}
 
@@ -39,10 +39,10 @@ public function isAuthorized($user) {
     public function index()
     {
         $this->set('tickets', $this->Tickets->find('all', ['contain' => [
-        		'Attachments', 
-        		'Departments', 
-        		'TicketTypes', 
-        		'TicketStatus', 
+        		'Attachments',
+        		'Departments',
+        		'TicketTypes',
+        		'TicketStatus',
         		'Users',
         		'Projects']
         ]));
@@ -124,7 +124,7 @@ public function isAuthorized($user) {
             }
         }
         $departments = $this->Tickets->Departments->find('list', ['limit' => 200]);
-        $types = $this->Tickets->Types->find('list', ['limit' => 200]);
+        $types = $this->Tickets->TicketTypes->find('list', ['limit' => 200]);
         $status = $this->Tickets->TicketStatus->find('list', ['limit' => 200]);
         $users = $this->Tickets->Users->find('list', ['limit' => 200]);
         $projects = $this->Tickets->Projects->find('list', ['limit' => 200]);
@@ -149,5 +149,19 @@ public function isAuthorized($user) {
             $this->Flash->error(__('The ticket could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function options()
+    {
+    	if ($this->request->is('json')) {
+	    	$types = $this->Tickets->TicketTypes->find('all', ['fields' => ['id', 'name']]);
+	    	$status = $this->Tickets->TicketStatus->find('all', ['fields' => ['id', 'name']])->where(['TicketStatus.active'=>true]);
+	    	$defaultstatus = $this->Tickets->TicketStatus->find('all', ['fields' => ['id']])
+	    	->where(['TicketStatus.default_value' => true, 'TicketStatus.active' => true])
+	    	->first();
+	    	$departments = $this->Tickets->Departments->find('all', ['fields' => ['id', 'name']]);
+	    	$this->set(compact('departments', 'types', 'status', 'defaultstatus'));
+	    	$this->set('_serialize', ['defaultstatus', 'departments', 'types', 'status']);
+    	}
     }
 }

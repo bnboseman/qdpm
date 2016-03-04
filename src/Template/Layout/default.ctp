@@ -55,8 +55,13 @@
         <?= $this->Html->script('bower_components/tinymce-dist/tinymce.min.js'); ?>
         <?= $this->Html->script('bower_components/angular-ui-tinymce/dist/tinymce.min.js'); ?>
         <?= $this->Html->script('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'); ?>
-        <?= $this->Html->script('controllers/controllers.js'); ?>
+
+        <!-- Angular files -->
         <?= $this->Html->script('script.js'); ?>
+        <?php $this->Angular->includeFilesFromDirectory('controllers' ); ?>
+        <?php $this->Angular->includeFilesFromDirectory('factories'); ?>
+        <?php $this->Angular->includeFilesFromDirectory('directives'); ?>
+
 
     </body>
 </html>

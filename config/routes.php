@@ -40,7 +40,14 @@ Router::scope('/', function ($routes) {
 	$routes->resources('Tasks', function( $routes) {
 		$routes->resources('TaskComments');
 	});
-	$routes->resources('Tickets', function( $routes) {
+	$routes->resources('Tickets', [
+			'map' => [
+					'options' => [
+							'action' => 'options',
+							'method' => 'GET'
+					]
+			]],
+			function( $routes) {
 		$routes->resources('Comments', ['controller' => 'ticket_comments']);
 	});
 	$routes->resources('UserReports');

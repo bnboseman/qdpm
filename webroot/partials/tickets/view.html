@@ -11,8 +11,21 @@
         <div ng-bind-html="ticket.description | unsafe"></div>
 
         <table ng-show="ticket.comments.length > 0" class="table table-responsive table-striped">
+            <tr>
+                <th>
+                    Actions
+                </th>
+                <th>
+                    Comment
+                </th>
+                <th>
+                    Created At
+                </th>
+            </tr>
             <tr ng-repeat="comment in ticket.comments">
-                <td class="col-xs-1"><a href="#" ng-click="deleteTicketComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a> <i class="fa fa-pencil-square-o"></i></td>
+                <td class="col-xs-1">
+                    <a href="#" ng-click="deleteTicketComment(comment);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a>
+                    <i class="fa fa-pencil-square-o"></i></td>
                 <td class="comments col-xs-8">
                     <attachments-list attachments="comment.attachments"></attachments-list>
                     <div ng-show="comment.description" ng-bind-html="comment.description | unsafe"></div>
@@ -20,9 +33,10 @@
                         <li ng-show="comment.ticket_status"><i class="fa fa-angle-double-right"></i> Status: {{comment.ticket_status.name}}</li>
                     </ul>
                 </td>
-                <td class="col-xs-2">{{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br /> {{comment.created | amDateFormat:'h:mm a'}}<br />
+                <td class="col-xs-2">
+                    {{comment.created | amDateFormat:'MMMM DD, YYYY'}}<br /> {{comment.created | amDateFormat:'h:mm a'}}<br />
                     <a href="mailto:{{comment.user.email}}">{{comment.user.full_name}}</a>
-
+                </td>
             </tr>
         </table>
         </table>
@@ -36,7 +50,8 @@
             <div class="panel-body" ng-show="ticket.tasks.length > 0">
                 <table class="table table-responsive">
                     <tr ng-repeat="task in ticket.tasks">
-                        <td><a href="#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a> [{{task.task_status.name}}]</td>
+                        <td>
+                            <a href="#/projects/{{task.project_id}}/tasks/{{task.id}}">{{task.name}}</a> [{{task.task_status.name}}]</td>
                         <td class="text-right"> <a href="#" ng-click="deleteTask(task.id);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></td>
         </tr>
         </table>

@@ -9,19 +9,27 @@
             <th class="col-xs-4">Name</th>
             <th class="col-xs-2">Type</th>
             <th class="col-xs-1">Department</th>
-
             <th class="col-xs-3" ng-show="{{!project}}">Project</th>
             <th class="col-xs-2">Created</th>
         </tr>
 
         <tr dir-paginate="ticket in tickets | itemsPerPage: 10">
-            <td><a href="#"><i class="fa fa-pencil-square-o"></i></a> <a href="#" ng-click="deleteTicket(ticket);  $event.preventDefault(); $event.stopPropagation();"><i class="fa fa-minus-circle redicon"></i></a></td>
+            <td>
+                <a href="#"><i class="fa fa-pencil-square-o"></i></a>
+                <a href="#" ng-click="deleteTicket(ticket);  $event.preventDefault(); $event.stopPropagation();">
+                    <i class="fa fa-minus-circle redicon"></i>
+                </a>
+            </td>
             <td>{{ticket.id}}</td>
             <td>{{ticket.ticket_status.name}}</td>
-            <td><a href="#/projects/{{ticket.project_id}}/tickets/{{ticket.id}}">{{ticket.name}}</a></td>
+            <td>
+                <a href="#/projects/{{ticket.project_id}}/tickets/{{ticket.id}}">{{ticket.name}}</a>
+            </td>
             <td>{{ticket.ticket_type.name}}</td>
             <td>{{ticket.department.name}}</td>
-            <td ng-show="{{!project}}"><a href="/#/projects/{{ticket.project_id}}/tickets/">{{ticket.project.name}}</a></td>
+            <td ng-show="{{!project}}">
+                <a href="/#/projects/{{ticket.project_id}}/tickets/">{{ticket.project.name}}</a>
+            </td>
             <td>{{ticket.created | amDateFormat:'LL'}}</td>
         </tr>
     </table>

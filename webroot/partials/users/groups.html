@@ -1,0 +1,27 @@
+<div ng-repeat="group in groups" ng-show="group.users.length > 0">
+    <div>
+        <h2 class="h4">{{group.name}}</h2></div>
+    <div class="col-md-6">
+        <table class="table" ng-show="group.users.length > 0">
+            <tr>
+                <td>
+                    <input type="checkbox" value="" class="check_all_users">
+                </td>
+                <td>
+                    Users
+                </td>
+
+                <tr ng-repeat="user in group.users">
+                    <td>
+                        <input type="checkbox" value="{{user.id}}" class="check_all_users" name="{{type}}[AssignedTo]">
+                    </td>
+                    <td>
+                        {{ user.full_name}}
+                    </td>
+                </tr>
+            </tr>
+        </table>
+    </div>
+    <div class="clearfix">
+    </div>
+</div>
